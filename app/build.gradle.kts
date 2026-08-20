@@ -34,11 +34,20 @@ android {
     }
   }
 
+  signingConfigs {
+    create("release") {
+      storeFile = file("chumian-release.keystore")
+      storePassword = "chumian123"
+      keyAlias = "chumian"
+      keyPassword = "chumian123"
+    }
+  }
   buildTypes {
     all { buildConfigField("String", "ACRA_REPORT_EMAIL", "\"reports@f-droid.org\"") }
     getByName("release") {
       isMinifyEnabled = true
       isShrinkResources = true
+      signingConfig = signingConfigs.getByName("release")
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
     getByName("debug") {
