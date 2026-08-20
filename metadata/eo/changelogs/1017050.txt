@@ -1,0 +1,8 @@
+• pluraj erar-riparoj
+• montri emblemojn de deponejoj sur la listo de deponejoj
+• montri kialojn de fiebloj (se disponeblaj)
+• senasistaj ĝisdatigoj neuzante la privilegian aldonaĵon (aktuale nur per F-Droid Baza)
+• montri grandon de aplikaĵo sur la ekrano de aplikaĵaj detaloj (nur en altnivela reĝimo)
+• iomete malpli helaj nomoj de aplikaĵoj sur listoj por plibonigi legeblon
+• restarigi (mal)fermitan staton de “Ĝisdatigi ĉion” en langeto “Ĝisdatigoj”
+• restarigi aktivan langeton post restarto

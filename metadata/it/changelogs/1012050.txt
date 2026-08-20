@@ -1,0 +1,13 @@
+* La localizzazione della descrizione dell'app rispetta le liste nelle impostazioni della lingua di Android
+
+* La scheda Più Recente mostra le app in base alle impostazioni della lingua, ordinate dalle più recenti
+
+* Risultati di ricerca decisamente migliorati
+
+* Pulizia della cache più robusta
+
+* Pianifica la pulizia della cache in modo efficace
+
+* Revisionata l'analisi dell'URL del repo per un'aggiunta affidabile dei repo
+
+* Telemetria di F-Droid a consenso volontario

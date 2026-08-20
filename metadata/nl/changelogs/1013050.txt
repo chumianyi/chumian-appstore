@@ -1,0 +1,17 @@
+* Thema-ondersteuning gelinkt aan interne Android thema's (@proletarius101)
+
+* Nieuwe notificatiebanner: "Geen Internet" en "Data of WiFi uitgeschakeld"
+
+* Beter omgaan met USB-OTG en SD-kaart repos en mirrors
+
+* Stop herhaalde updates Trichrome Library
+
+* Veranderingen om het Materiaalontwerp te volgen (@proletarius101)
+
+* Verbeterde OpenCollective badge (@ConnyDuck)
+
+* Revisie Glide icoon laden (@proletarius101)
+
+* Nieuw adaptief icoon (@12people)
+
+* Code gemodernizeerd (@Isira-Seneviratne)

@@ -1,0 +1,15 @@
+OPOMBA: Osnovna različica odjemalca F-Droid ima okrnjen nabor funkcij (npr. brez deljenja v bližini in brez funkcije panike). Namenjena je Androidu 13 in lahko izvaja posodobitve brez nadzora brez privilegirane razširitve ali roota.
+
+F-Droid je namestitveni katalog brezplačnih programskih aplikacij za Android. Odjemalska aplikacija F-Droid omogoča enostavno brskanje, namestitev in spremljanje posodobitev v vaši napravi.
+
+Poveže se s katerim koli repozitorijem, združljivim s F-Droid. Privzeto repozitorij gostuje na f-droid.org, ki vsebuje samo pristno brezplačno programsko opremo.
+
+Android sam po sebi je odprt v smislu, da lahko prosto nameščate APK-je od koder koli želite, vendar obstaja veliko dobrih razlogov za uporabo F-Droida kot upravitelja aplikacij za brezplačno programsko opremo:
+
+* Prejemajte obvestila, ko so na voljo posodobitve
+* Po želji lahko samodejno prenašate in nameščate posodobitve
+* Spremljajte starejše in beta različice
+* Filtrirajte aplikacije, ki niso združljive z napravo
+* Iskanje aplikacij prek kategorij in opisov, ki jih je mogoče iskati
+* Dostopajte do povezanih URL-jev za donacije, izvorno kodo itd.
+* Ostanite varni s preverjanjem podpisov indeksov repozitorij in zgoščenih vrednosti APK-jev

@@ -1,0 +1,35 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- 液态玻璃卡片背景 - 半透明白色 -->
+    <path
+        android:pathData="M30,24 L78,24 A6,6 0,0 1,84 30 L84,78 A6,6 0,0 1,78 84 L30,84 A6,6 0,0 1,24 78 L24,30 A6,6 0,0 1,30 24z"
+        android:fillColor="#80FFFFFF"
+        android:strokeColor="#B3FFFFFF"
+        android:strokeWidth="1.5" />
+    <!-- 玻璃高光 - 顶部渐变 -->
+    <path
+        android:pathData="M30,24 L78,24 A6,6 0,0 1,84 30 L84,42 L24,42 L24,30 A6,6 0,0 1,30 24z"
+        android:fillColor="#40FFFFFF" />
+    <!-- 购物袋图标 -->
+    <path
+        android:pathData="M42,46 L66,46 L68,72 A4,4 0,0 1,64 76 L44,76 A4,4 0,0 1,40 72z"
+        android:fillColor="#FFFFFFFF" />
+    <!-- 购物袋提手 -->
+    <path
+        android:pathData="M47,46 L47,42 A7,7 0,0 1,61 42 L61,46"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000" />
+    <!-- 下载箭头 -->
+    <path
+        android:pathData="M54,52 L54,64 M48,58 L54,64 L60,58"
+        android:strokeColor="#1A73E8"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+</vector>

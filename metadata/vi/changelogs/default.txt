@@ -1,0 +1,8 @@
+* Giao diện người dùng được viết lại hoàn toàn bằng Kotlin Compose
+* Cải tiến chức năng tìm kiếm, bao gồm tìm kiếm trong phần mô tả và bản dịch
+* Dễ dàng khám phá các ứng dụng mới, đồng thời làm nổi bật những ứng dụng được tải xuống nhiều nhất
+* Phê duyệt cài đặt *trước khi* tải xuống
+* Tải xuống nhiều bản cập nhật/tải xuống
+* Thông báo cho người dùng về các sự cố với ứng dụng (ví dụ: chữ ký đã thay đổi)
+* Màu chủ đề Material You tùy chọn
+* Cải thiện khả năng lọc danh sách

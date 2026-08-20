@@ -1,0 +1,3 @@
+* Sửa lỗi tự động xóa ứng dụng khỏi nguồn lưu trữ (#568)
+
+* Cập nhật danh mục dữ liệu nhanh hơn nhiều

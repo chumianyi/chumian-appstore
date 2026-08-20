@@ -1,0 +1,9 @@
+* Permissão do Android 10 para interromper os prompts de fontes desc.
+* Lidar com novas "permissões divididas"
+* Corrija preferência da barra de busca em versões atuais do Android
+* Defina regras de backup para evitar salvar o repos. de troca
+* o teclado abre quando a busca é desmarcada
+* sincronização de tradução com strings do Android
+* forçar domínio de repos. comum para HTTPS (GitLab, GitHub etc.)
+* efeito cascata padrão para links nos detalhes do app
+* exibe ícone padrão para apps sem ícone

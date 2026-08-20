@@ -1,0 +1,15 @@
+* Verbessertes Caching bei knappem Speicher
+
+* Verbesserte Leistung auf Geräten mit wenig Speicher
+
+* Alle Downloads berücksichtigen „Nur über WLAN“
+
+* Geringere Speicherauslastung bei wenig Speicher
+
+* Hinzufügen eigener Spiegelserver zu jedem Repo durch Klicken auf Links, QR-Codes usw.
+
+* Viele Korrekturen/Neuerungen für Direkttausch
+
+* Wiederkehrende Update-Benachrichtigungen korrigiert (#1271)
+
+* F-Droid erkennt F-Droid-Nightly-URLs von GitLab

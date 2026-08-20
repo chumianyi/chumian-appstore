@@ -1,0 +1,254 @@
+package org.fdroid.ui.details
+
+import android.app.Application
+import android.content.Intent
+import android.content.pm.PackageInfo
+import androidx.activity.result.ActivityResult
+import androidx.annotation.UiThread
+import androidx.annotation.WorkerThread
+import androidx.core.content.pm.PackageInfoCompat.getLongVersionCode
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.application
+import androidx.lifecycle.viewModelScope
+import app.cash.molecule.AndroidUiDispatcher
+import app.cash.molecule.RecompositionMode.ContextClock
+import app.cash.molecule.launchMolecule
+import coil3.SingletonImageLoader
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import mu.KotlinLogging
+import org.fdroid.UpdateChecker
+import org.fdroid.database.AppMetadata
+import org.fdroid.database.FDroidDatabase
+import org.fdroid.download.DownloadRequest
+import org.fdroid.download.NetworkMonitor
+import org.fdroid.getCacheKey
+import org.fdroid.index.RELEASE_CHANNEL_BETA
+import org.fdroid.index.RepoManager
+import org.fdroid.index.v2.PackageVersion
+import org.fdroid.install.AppInstallManager
+import org.fdroid.install.InstallState
+import org.fdroid.install.InstalledAppsCache
+import org.fdroid.repo.RepoPreLoader
+import org.fdroid.settings.OnboardingManager
+import org.fdroid.settings.SettingsManager
+import org.fdroid.updates.UpdatesManager
+import org.fdroid.utils.IoDispatcher
+
+@HiltViewModel(assistedFactory = AppDetailsViewModel.Factory::class)
+class AppDetailsViewModel
+@AssistedInject
+constructor(
+  private val app: Application,
+  @Assisted private val packageName: String,
+  @param:IoDispatcher private val scope: CoroutineScope,
+  @param:IoDispatcher private val dispatcher: CoroutineDispatcher,
+  private val db: FDroidDatabase,
+  private val repoManager: RepoManager,
+  private val repoPreLoader: RepoPreLoader,
+  private val updateChecker: UpdateChecker,
+  private val updatesManager: UpdatesManager,
+  private val networkMonitor: NetworkMonitor,
+  private val settingsManager: SettingsManager,
+  private val onboardingManager: OnboardingManager,
+  private val appInstallManager: AppInstallManager,
+  private val installedAppsCache: InstalledAppsCache,
+) : AndroidViewModel(app) {
+  private val log = KotlinLogging.logger {}
+  private val packageInfoFlow = MutableStateFlow<AppInfo?>(null)
+  private val currentRepoIdFlow = MutableStateFlow<Long?>(null)
+  private val moleculeScope =
+    CoroutineScope(viewModelScope.coroutineContext + AndroidUiDispatcher.Main)
+
+  val appDetails: StateFlow<AppDetailsItem?> by
+    lazy(LazyThreadSafetyMode.NONE) {
+      moleculeScope.launchMolecule(mode = ContextClock) {
+        DetailsPresenter(
+          db = db,
+          dispatcher = dispatcher,
+          repoManager = repoManager,
+          repoPreLoader = repoPreLoader,
+          updateChecker = updateChecker,
+          settingsManager = settingsManager,
+          appInstallManager = appInstallManager,
+          viewModel = this,
+          packageInfoFlow = packageInfoFlow,
+          currentRepoIdFlow = currentRepoIdFlow,
+          showAntiFeaturesOnboardingFlow = onboardingManager.showAntiFeaturesOnboarding,
+          appsWithIssuesFlow = updatesManager.appsWithIssues,
+          networkStateFlow = networkMonitor.networkState,
+        )
+      }
+    }
+
+  init {
+    viewModelScope.launch(dispatcher) {
+      // Collect the cached packageInfo for this app. This way we have a central place
+      // to react to state changes for installs, updates and uninstalls
+      installedAppsCache.installedApps
+        .map { cacheMap -> cacheMap[packageName]?.let { getLongVersionCode(it) } }
+        .distinctUntilChanged()
+        .collect { loadPackageInfoFlow() }
+    }
+  }
+
+  @WorkerThread
+  private fun loadPackageInfoFlow() {
+    val packageManager = app.packageManager
+    val packageInfo = installedAppsCache.installedApps.value[packageName]
+    packageInfoFlow.value =
+      if (packageInfo == null) {
+        AppInfo(packageName)
+      } else {
+        val intent =
+          if (packageName == app.packageName) {
+            null // we shouldn't launch ourselves, so no launch intent here
+          } else {
+            packageManager.getLaunchIntentForPackage(packageName)
+          }
+        AppInfo(packageName, packageInfo, intent)
+      }
+  }
+
+  @UiThread
+  fun install(appMetadata: AppMetadata, version: PackageVersion, iconModel: Any?) {
+    scope.launch(Dispatchers.Main) {
+      val result =
+        appInstallManager.install(
+          packageName = packageName,
+          appMetadata = appMetadata,
+          version = version,
+          currentVersionName = packageInfoFlow.value?.packageInfo?.versionName,
+          repo = repoManager.getRepository(appMetadata.repoId) ?: return@launch,
+          iconModel = iconModel,
+          canAskPreApprovalNow = true,
+        )
+      log.info { "Install result was: $result" }
+      // We are not doing anything with that result,
+      // because an installation could have been triggered via 'Update all' in My Apps as well.
+      // So updating states need to happen elsewhere.
+    }
+  }
+
+  @UiThread
+  fun requestUserConfirmation(installState: InstallState.UserConfirmationNeeded) {
+    scope.launch(Dispatchers.Main) {
+      val result = appInstallManager.requestUserConfirmation(packageName, installState)
+      log.info { "requestUserConfirmation result was: $result" }
+    }
+  }
+
+  @UiThread
+  fun checkUserConfirmation(installState: InstallState.UserConfirmationNeeded) {
+    scope.launch(Dispatchers.Main) {
+      delay(500) // wait a moment to increase chance that state got updated
+      appInstallManager.checkUserConfirmation(packageName, installState)
+    }
+  }
+
+  @UiThread
+  fun cancelInstall() {
+    appInstallManager.cancel(packageName)
+  }
+
+  @UiThread
+  fun onUninstallResult(activityResult: ActivityResult) {
+    val name = (appDetails.value as? LoadedAppDetailsItem)?.name
+    val result = appInstallManager.onUninstallResult(packageName, name, activityResult)
+    log.info { "Uninstall result was: $result" }
+  }
+
+  @UiThread
+  fun onRepoChanged(repoId: Long) {
+    currentRepoIdFlow.update { repoId }
+  }
+
+  @UiThread
+  fun onPreferredRepoChanged(repoId: Long) {
+    scope.launch {
+      repoManager.setPreferredRepoId(packageName, repoId).join()
+      updatesManager.loadUpdates()
+    }
+  }
+
+  @UiThread
+  fun onNotWarnWhenMetered() {
+    settingsManager.onDontWarnOnMeteredNetwork()
+  }
+
+  override fun onCleared() {
+    log.info { "App details screen left: $packageName" }
+    appInstallManager.cleanUp(packageName)
+    // remove screenshots from disk cache to not fill it up quickly with large images
+    val diskCache = SingletonImageLoader.get(application).diskCache
+    if (diskCache != null)
+      scope.launch {
+        (appDetails.value as? LoadedAppDetailsItem)?.phoneScreenshots?.forEach { screenshot ->
+          if (screenshot is DownloadRequest) {
+            try {
+              diskCache.remove(screenshot.getCacheKey())
+            } catch (e: Exception) {
+              log.error(e) { "Failed to remove screenshot from disk cache: " }
+            }
+          }
+        }
+      }
+  }
+
+  @UiThread
+  fun allowBetaUpdates() {
+    val appPrefs = (appDetails.value as? LoadedAppDetailsItem)?.appPrefs ?: return
+    scope.launch {
+      db.getAppPrefsDao().update(appPrefs.toggleReleaseChannel(RELEASE_CHANNEL_BETA))
+      updatesManager.loadUpdates()
+    }
+  }
+
+  @UiThread
+  fun ignoreAllUpdates() {
+    val appPrefs = (appDetails.value as? LoadedAppDetailsItem)?.appPrefs ?: return
+    scope.launch {
+      db.getAppPrefsDao().update(appPrefs.toggleIgnoreAllUpdates())
+      updatesManager.loadUpdates()
+    }
+  }
+
+  @UiThread
+  fun ignoreThisUpdate() {
+    val appPrefs = (appDetails.value as? LoadedAppDetailsItem)?.appPrefs ?: return
+    val versionCode =
+      (appDetails.value as? LoadedAppDetailsItem)?.possibleUpdate?.versionCode ?: return
+    scope.launch {
+      db.getAppPrefsDao().update(appPrefs.toggleIgnoreVersionCodeUpdate(versionCode))
+      updatesManager.loadUpdates()
+    }
+  }
+
+  @UiThread
+  fun onAntiFeaturesOnboardingSeen() {
+    onboardingManager.onAntiFeaturesOnboardingSeen()
+  }
+
+  @AssistedFactory
+  interface Factory {
+    fun create(packageName: String): AppDetailsViewModel
+  }
+}
+
+class AppInfo(
+  val packageName: String,
+  val packageInfo: PackageInfo? = null,
+  val launchIntent: Intent? = null,
+)

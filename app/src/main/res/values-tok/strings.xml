@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_full">F-Droid</string>
+    <string name="updates">sin</string>
+    <string name="ok">pona</string>
+    <string name="yes">lon</string>
+    <string name="no">ala</string>
+    <string name="back">tawa monsi</string>
+    <string name="cancel">awen ala</string>
+    <string name="menu_search">alasa</string>
+    <string name="menu_add_repo">poki ilo sin</string>
+    <string name="menu_share">pana</string>
+</resources>

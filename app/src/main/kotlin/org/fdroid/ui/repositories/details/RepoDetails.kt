@@ -1,0 +1,167 @@
+package org.fdroid.ui.repositories.details
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.QrCode
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Sync
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.hideFromAccessibility
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.viktormykhailiv.compose.hints.HintProperties
+import com.viktormykhailiv.compose.hints.hintAnchor
+import com.viktormykhailiv.compose.hints.rememberHint
+import com.viktormykhailiv.compose.hints.rememberHintAnchorState
+import com.viktormykhailiv.compose.hints.rememberHintController
+import org.fdroid.R
+import org.fdroid.repo.RepoUpdateWorker
+import org.fdroid.ui.FDroidContent
+import org.fdroid.ui.utils.BackButton
+import org.fdroid.ui.utils.BigLoadingIndicator
+import org.fdroid.ui.utils.HintOverlayContainer
+import org.fdroid.ui.utils.MeteredConnectionDialog
+import org.fdroid.ui.utils.OnboardingPopupCard
+import org.fdroid.ui.utils.TopAppBarButton
+import org.fdroid.ui.utils.TopAppBarOverflowButton
+import org.fdroid.ui.utils.getRepoDetailsInfo
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+fun RepoDetails(
+  info: RepoDetailsInfo,
+  onShowAppsClicked: (String, Long) -> Unit,
+  onBackNav: (() -> Unit)?,
+) {
+  val context = LocalContext.current
+  val repo = info.model.repo
+
+  val hintController = rememberHintController()
+  val hint =
+    rememberHint(HintProperties(dismissOnClickOutside = false)) {
+      Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+        OnboardingPopupCard(
+          title = stringResource(R.string.repo_details),
+          message = stringResource(R.string.repo_details_info_text),
+          modifier = Modifier.padding(horizontal = 32.dp, vertical = 8.dp),
+          onGotIt = {
+            info.actions.onOnboardingSeen()
+            hintController.dismiss()
+          },
+        )
+      }
+    }
+  val hintAnchor = rememberHintAnchorState(hint)
+  LaunchedEffect(info.model.showOnboarding) {
+    if (info.model.showOnboarding) {
+      hintController.show(hintAnchor)
+    }
+  }
+
+  var qrCodeDialog by remember { mutableStateOf(false) }
+  var deleteDialog by remember { mutableStateOf(false) }
+  var showMeteredDialog by remember { mutableStateOf<(() -> Unit)?>(null) }
+  // QrCode dialog
+  if (repo != null && qrCodeDialog)
+    QrCodeDialog({ qrCodeDialog = false }) { info.actions.generateQrCode(repo) }
+  // Repo delete dialog
+  if (repo != null && deleteDialog)
+    DeleteDialog({ deleteDialog = false }) {
+      info.actions.deleteRepository()
+      deleteDialog = false
+      onBackNav?.invoke()
+    }
+  // Metered warning dialog
+  val meteredLambda = showMeteredDialog
+  if (meteredLambda != null)
+    MeteredConnectionDialog(
+      numBytes = null,
+      onConfirm = { notWarnWhenMetered ->
+        if (notWarnWhenMetered) info.actions.onNotWarnWhenMetered()
+        meteredLambda()
+      },
+      onDismiss = { showMeteredDialog = null },
+    )
+  Scaffold(
+    topBar = {
+      TopAppBar(
+        navigationIcon = { if (onBackNav != null) BackButton(onClick = onBackNav) },
+        title = {},
+        actions = {
+          if (repo == null) return@TopAppBar
+          TopAppBarButton(
+            imageVector = Icons.Default.Share,
+            contentDescription = stringResource(R.string.share_repository),
+            onClick = { info.model.shareRepo(context) },
+          )
+          TopAppBarButton(
+            imageVector = Icons.Default.QrCode,
+            contentDescription = stringResource(R.string.show_repository_qr),
+            onClick = { qrCodeDialog = true },
+          )
+          TopAppBarButton(
+            imageVector = Icons.Default.Sync,
+            contentDescription = stringResource(R.string.repo_force_update),
+            enabled = info.model.isUpdateButtonEnabled,
+            onClick = {
+              if (info.model.networkState.showWarningDialog)
+                showMeteredDialog = { RepoUpdateWorker.updateNow(context, repo.repoId) }
+              else RepoUpdateWorker.updateNow(context, repo.repoId)
+            },
+          )
+          TopAppBarOverflowButton { onDismissRequest ->
+            DropdownMenuItem(
+              text = { Text(stringResource(R.string.delete)) },
+              onClick = {
+                onDismissRequest()
+                deleteDialog = true
+              },
+              leadingIcon = {
+                Icon(
+                  imageVector = Icons.Default.Delete,
+                  contentDescription = null,
+                  modifier = Modifier.semantics { hideFromAccessibility() },
+                )
+              },
+            )
+          }
+        },
+      )
+    },
+    modifier = Modifier.hintAnchor(hintAnchor, fullScreen = true),
+  ) { paddingValues ->
+    if (repo == null) BigLoadingIndicator()
+    else
+      RepoDetailsContent(
+        info = info,
+        onShowAppsClicked = onShowAppsClicked,
+        modifier = Modifier.padding(paddingValues),
+      )
+  }
+}
+
+@Preview
+@Composable
+private fun RepoDetailsScreenPreview() {
+  HintOverlayContainer { FDroidContent { RepoDetails(getRepoDetailsInfo(), { _, _ -> }, {}) } }
+}

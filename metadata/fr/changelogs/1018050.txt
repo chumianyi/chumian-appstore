@@ -1,0 +1,7 @@
+* Correction de l'utilisation des dépôts et des miroirs provenant du stockage externe sur les versions récentes d'Android
+* Amélioration de la gestion du Wi-Fi dans « À proximité »
+* La barre de navigation mémorise désormais sa position même lorsque F-Droid redémarre
+* Nouvelle langue : le swahili
+* Correction du téléchargement d'images pour les dépôts utilisant encore index-v1
+* Correction de plantages liés à l'espace d'échange, à la gestion des dépôts et à d'autres problèmes
+* Le bouton « Rétrograder » a été supprimé ; Android ne l'autorise plus

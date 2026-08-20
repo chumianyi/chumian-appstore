@@ -1,0 +1,8 @@
+* Rishkrim nga e para e UI-t me Kotlin Compose
+* përmirësim kërkimi, kërkim edhe në përshkrime dhe përkthime
+* më e lehtë të zbulohen aplikacione të rinj, theksim gjithashtu i atyre më të shkarkuar
+* miratim instalimi *para* shkarkimi
+* përditësime/shkarkime të shumta në të njëjtën kohë
+* njoftim i përdoruesve për probleme me aplikacione (b.f. ndryshim kyçi nënshkrimi)
+* temë opsionale Material You ngjyrash
+* përmirësim filtrimi listash

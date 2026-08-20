@@ -1,0 +1,21 @@
+v1.3.1
+* Athchóiriú mór ar phíobáil lárnach In aice láimhe/Malartaithe
+
+* Tacaíocht TLSv1.3, nuair a thacaíonn an gléas leis
+
+v1.3
+* Cnaipí agus nuashonruithe stádais níos iontaofa
+
+* Athchóiriú ar Shocruithe lena n-áirítear rialuithe nua úsáide sonraí
+
+* Oibriú cúlra atá feasach ar cheallraí ar Android 5.0 agus níos nuaí
+
+* Mír roghchláir a roinnt le haghaidh stórtha
+
+* Tuairiscí tuairteála a mhúchadh i Socruithe
+
+* Amharcóir Staire a shuiteáil nuair a bhíonn logáil cumasaithe
+
+* Liosta Frith-Gnéithe Inchliceáilte, NoSourceSince curtha leis
+
+* Is é Android 4.0 an t-íosmhéid a dtacaítear leis anois

@@ -1,0 +1,3 @@
+* Tăng hiệu năng giao diện đáng kể, đặc biệt là khi bật tính năng lưu trữ
+
+* Khắc phục các lỗi gây sập ứng dụng

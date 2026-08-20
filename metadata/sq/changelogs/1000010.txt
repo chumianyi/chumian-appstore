@@ -1,0 +1,21 @@
+F-Droid mbërriti te 1.0!
+
+Kjo hedhje në qarkullim përfshin plot ndryshime të mëdha:
+
+* Ripunim i plotë rrjedhe pune përditësimi aplikacionesh
+
+* Përmbledhje dhe përshkrime tërësisht të përkthyeshme aplikacionesh
+
+* Ndarje “Ç’ka të Re” për shfaqje ndryshimesh në hedhjen aktuale në qarkullim
+
+* Foto ekrani dhe ilustrime veçorish
+
+* Mbulim për media instalimesh, kartela OTA, ZIP, etj.
+
+* Përmirësim mbrojtjeje nga gjurmimet (HTTP ETag, TLS, etj.)
+
+* Përditësime tërësisht në prapaskenë me Zgjerimin e Privilegjuar
+
+* Theksim dhurimesh për zhvillues aplikacionesh
+
+* Përditësime shumë të shpejta të treguesve

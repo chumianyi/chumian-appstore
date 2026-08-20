@@ -1,0 +1,21 @@
+Itt az F-Droid 1.0!
+
+* A kiad. számos változást tartalmaz:
+
+* Átdolgozott munkafolyamat az alk.frissítésnél
+
+* Telj. lefordított alk.összegzések és leírások
+
+* „Újdonságok” szakasz a jelenlegi kiadás változásaival
+
+* Képernyőképek és kiemelt grafikák
+
+* Média, OTA, ZIP, stb. fájlok támogatása
+
+* T.fejlesztett követés elleni védelem (HTTP ETag, TLS, stb.)
+
+* Háttérben futó frissítések a privilegizált kiterjesztéssel
+
+* A fejlesztőknek szánt adományok kiemelése
+
+* Sokkal gyorsabb indexfrissítések

@@ -1,0 +1,21 @@
+F-Droid đã ra mắt phiên bản 1.0!
+
+Bản phát hành này mang đến rất nhiều thay đổi lớn:
+
+* Cải tiến toàn diện quy trình cập nhật ứng dụng
+
+* Hỗ trợ dịch hoàn toàn phần tóm tắt và mô tả ứng dụng
+
+* Thêm mục "Có gì mới" để hiển thị các thay đổi trong phiên bản hiện tại
+
+* Thêm ảnh chụp màn hình và hình ảnh nổi bật
+
+* Hỗ trợ cài đặt các tệp phương tiện, OTA, ZIP, v.v.
+
+* Tăng cường bảo vệ chống theo dõi (HTTP ETag, TLS, v.v.)
+
+* Cập nhật hoàn toàn dưới nền thông qua tiện ích mở rộng đặc quyền
+
+* Nổi bật quyên góp ủng hộ cho các nhà phát triển ứng dụng
+
+* Cập nhật danh mục dữ liệu nhanh hơn nhiều

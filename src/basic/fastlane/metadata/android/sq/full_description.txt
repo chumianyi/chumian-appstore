@@ -1,0 +1,15 @@
+SHËNIM: Versioni elementar i Klientit F-Droid ka një grup të reduktuar veçorish (p.sh., s’ka ndarje atypari dhe s’ka veçorinë panik). Synon Android 13-n dhe mund të bëjë përditësime pa mbikëqyrje, pa zgjerim të privilegjuar apo rrënjë.
+
+F-Droid është një katalog i instalueshëm aplikacionesh software-i të lirë për Android. Aplikacioni klient F-Droid e bën të lehtë të shfletohen, instalohen dhe ndiqen përditësime në pajisjen tuaj.
+
+Lidhet me çfarëdo deposh të përputhshme me F-Droid. Depoja parazgjedhje strehohet në f-droid.org, e cila përmban vetëm <em>software</em> të lirë <em>bona fide</em>.
+
+Android-i vetë është i hapët, në kuptimin që jeni i lirë të instaloni APK-ra nga kudo që dëshironi, por ka plot arsye pse të përdoret F-Droid si përgjegjësi juaj i aplikacione <em>software</em> i lirë:
+
+* Merrni njoftim kur ka përditësime
+* Shkarkoni dhe instaloni automatikisht përditësime, në daçi
+* Ndiqni versione të vjetër dhe beta
+* Filtroni aplikacione jo të përputhshëm me pajisjen
+* Gjeni aplikacione përmes kategorish dhe përshkrimesh te të cilët mund bëhet kërkim
+* Përdorni URL-ra përkatëse për dhurime, kod burim, etj.
+* Qëndroni i mbrojtur, duke kontrolluar nënshkrime treguesi depoje dhe hash-e APK-sh

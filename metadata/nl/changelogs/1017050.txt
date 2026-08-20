@@ -1,0 +1,8 @@
+* Veel problemen opgelost
+* Toon databank iconen in databankenlijst
+* Toon redenen voor Anti-Functies (waar beschikbaar)
+* Verbeteringen uitvoeren zonder toezicht of bevoorrechtte extensie (alleen nog in F-Droid Basis)
+* Toon appmaat op het app details scherm (alleen in expert-modus)
+* Enigszins donkerdere appnamen in applijsten om leesbaarheid te verbeteren
+* Herstel gesloten status van "Update Alle" in het "Updates" tab (@tunedal)
+* Herstel actief tab tussen herstarten van de app

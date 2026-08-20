@@ -1,0 +1,7 @@
+* utilizar canais de notificação para controle de granulação fina (@Isira-Seneviratne)
+* compartilhar apps usando o Direct Share para Detalhes de Apps (@fynngodau)
+* O guia mais recente irá mostrar melhores resultados em aparelhos que não sejam em idioma inglês
+* atualizações das bibliotecas centrais (Jackson, androidx, gradle, etc)
+* suporte de rótulos brancos polidos
+
+Obrigado aos novos colaboradores! @fynngodau @projectgus @glennmennmen @Isira-Seneviratne

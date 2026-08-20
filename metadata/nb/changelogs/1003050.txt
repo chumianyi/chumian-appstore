@@ -1,0 +1,19 @@
+* Mer pålitelige knapper og statusoppdateringer
+
+* Overhalte innstillinger, blant annet med nye databrukinnstilinger
+
+* Batteribevist bakgrunnsdrift på Android 5.0 og nyere
+
+* «Del»-menyvalg på pakkebrønner
+
+* Mulighet til å skru av krasjrapporter i innstillinger
+
+* Installasjonshistorikkviser når logging er skrudd på
+
+* Klikkbar antifunksjonalitetsliste, la til NoSourceSince
+
+* Android 4.0 er nå eldste versjon som støttes
+
+* Store forbedringer for egne whitelabel-versjoner av F-Droid
+
+* Avansert innstilling for å sende debug-versjon+UUID ved nedlasting

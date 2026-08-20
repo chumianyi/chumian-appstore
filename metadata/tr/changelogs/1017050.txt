@@ -1,0 +1,8 @@
+* Birçok hata düzeltmesi
+* Depo listesinde depo simgelerini göster
+* Anti-Özelliklerin nedenlerini gösterme (varsa)
+* Ayrıcalıklı uzantı olmadan gözetimsiz yükseltmeler (şimdilik yalnızca F-Droid Basic)
+* Uygulama ayrıntıları ekranında uygulama boyutunu gösterme (yalnızca uzman modu)
+* Okunabilirliği artırmak için uygulama listelerindeki uygulama adları biraz daha koyulaştırıldı
+* Güncellemeler sekmesindeki "Tümünü Güncelle" seçeneğinin açık/kapalı durumu geri getirildi (@tunedal)
+* Uygulama yeniden başlatıldığında etkin sekmeyi geri yükleme

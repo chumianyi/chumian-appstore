@@ -1,0 +1,376 @@
+package org.fdroid.ui.details
+
+import android.content.Intent
+import android.os.Build.VERSION.SDK_INT
+import androidx.activity.result.ActivityResult
+import androidx.annotation.VisibleForTesting
+import androidx.core.os.LocaleListCompat
+import io.ktor.client.engine.ProxyConfig
+import org.fdroid.LocaleChooser.getBestLocale
+import org.fdroid.database.App
+import org.fdroid.database.AppIssue
+import org.fdroid.database.AppMetadata
+import org.fdroid.database.AppPrefs
+import org.fdroid.database.AppVersion
+import org.fdroid.database.Repository
+import org.fdroid.download.DownloadRequest
+import org.fdroid.download.NetworkState
+import org.fdroid.download.PackageName
+import org.fdroid.download.getImageModel
+import org.fdroid.index.RELEASE_CHANNEL_BETA
+import org.fdroid.index.v2.PackageVersion
+import org.fdroid.install.InstallState
+import org.fdroid.install.SessionInstallManager
+import org.fdroid.search.SearchHelper.removeZeroWhiteSpace
+import org.fdroid.ui.categories.CategoryItem
+import androidx.core.net.toUri
+
+sealed class AppDetailsItem
+
+data object NotFoundAppDetailsItem : AppDetailsItem()
+
+data class LoadedAppDetailsItem(
+  val app: AppMetadata,
+  val actions: AppDetailsActions,
+  val installState: InstallState,
+  val networkState: NetworkState,
+  /**
+   * The ID of the repo that is currently set as preferred. Note that the repository ID of this
+   * [app] may be different.
+   */
+  val preferredRepoId: Long = app.repoId,
+  /** A list of [Repository]s the app is in. If this is empty, we don't want to show the list. */
+  val repositories: List<Repository> = emptyList(),
+  val name: String,
+  val summary: String? = null,
+  val description: String? = null,
+  val icon: Any? = null,
+  val featureGraphic: Any? = null,
+  val phoneScreenshots: List<Any> = emptyList(),
+  val categories: List<CategoryItem>? = null,
+  val versions: List<VersionItem>? = null,
+  val installedVersion: PackageVersion? = null,
+  /** Needed, because the [installedVersion] may not be available, e.g. too old. */
+  val installedVersionCode: Long? = null,
+  val installedVersionName: String? = null,
+  /**
+   * Needed, because the [installedVersion] may not be available, e.g. not version from any repo.
+   */
+  val installedSigner: String? = null,
+  /** The currently suggested version for installation. */
+  val suggestedVersion: PackageVersion? = null,
+  /**
+   * Similar to [suggestedVersion], but doesn't obey [appPrefs] for ignoring versions. This is
+   * useful for (un-)ignoring this version.
+   */
+  val possibleUpdate: PackageVersion? = null,
+  val appPrefs: AppPrefs? = null,
+  val whatsNew: String? = null,
+  val antiFeatures: List<AntiFeature>? = null,
+  val showAntiFeaturesOnboarding: Boolean = false,
+  val issue: AppIssue? = null,
+  val authorHasMoreThanOneApp: Boolean = false,
+  val proxy: ProxyConfig? = null,
+  val donateLinks: List<DonateLink> = emptyList(),
+) : AppDetailsItem() {
+  constructor(
+    repository: Repository,
+    preferredRepoId: Long,
+    repositories: List<Repository>,
+    dbApp: App,
+    actions: AppDetailsActions,
+    installState: InstallState,
+    networkState: NetworkState,
+    versions: List<VersionItem>?,
+    installedVersion: AppVersion?,
+    installedVersionCode: Long?,
+    installedVersionName: String?,
+    installedSigner: String?,
+    suggestedVersion: AppVersion?,
+    possibleUpdate: AppVersion?,
+    appPrefs: AppPrefs?,
+    showAntiFeaturesOnboarding: Boolean,
+    issue: AppIssue?,
+    authorHasMoreThanOneApp: Boolean,
+    localeList: LocaleListCompat,
+    proxy: ProxyConfig?,
+  ) : this(
+    app = dbApp.metadata,
+    actions = actions,
+    installState = installState,
+    networkState = networkState,
+    preferredRepoId = preferredRepoId,
+    repositories = repositories,
+    name = dbApp.metadata.name.getBestLocale(localeList)?.removeZeroWhiteSpace() ?: "Unknown App",
+    summary = dbApp.metadata.summary.getBestLocale(localeList)?.removeZeroWhiteSpace() ?: "",
+    description = getHtmlDescription(dbApp.getDescription(localeList)?.removeZeroWhiteSpace()),
+    icon =
+      if (installedVersionCode == null) {
+        dbApp.getIcon(localeList)?.getImageModel(repository, proxy)
+      } else {
+        val request =
+          dbApp.getIcon(localeList)?.getImageModel(repository, proxy) as? DownloadRequest
+        PackageName(dbApp.packageName, request)
+      },
+    featureGraphic = dbApp.getFeatureGraphic(localeList)?.getImageModel(repository, proxy),
+    phoneScreenshots =
+      dbApp.getPhoneScreenshots(localeList).mapNotNull { it.getImageModel(repository, proxy) },
+    categories =
+      dbApp.metadata.categories?.mapNotNull { categoryId ->
+        val category = repository.getCategories()[categoryId] ?: return@mapNotNull null
+        CategoryItem(id = category.id, name = category.getName(localeList) ?: "Unknown Category")
+      },
+    versions = versions,
+    installedVersion = installedVersion,
+    installedVersionCode = installedVersionCode,
+    installedVersionName = installedVersionName,
+    installedSigner = installedSigner,
+    suggestedVersion = suggestedVersion,
+    possibleUpdate = possibleUpdate,
+    appPrefs = appPrefs,
+    whatsNew =
+      suggestedVersion?.getWhatsNew(localeList)?.trim()
+        ?: installedVersion?.getWhatsNew(localeList)?.trim(),
+    antiFeatures =
+      installedVersion?.getAntiFeatures(repository, localeList, proxy)
+        ?: suggestedVersion?.getAntiFeatures(repository, localeList, proxy)
+        ?: (versions?.first()?.version as? AppVersion).getAntiFeatures(
+          repository = repository,
+          localeList = localeList,
+          proxy = proxy,
+        ),
+    showAntiFeaturesOnboarding = showAntiFeaturesOnboarding,
+    issue = issue,
+    authorHasMoreThanOneApp = authorHasMoreThanOneApp,
+    proxy = proxy,
+    donateLinks = mapDonateLinks(
+      (dbApp.metadata.donate ?: emptyList()) + listOfNotNull(
+        dbApp.metadata.liberapay?.let { it -> "https://liberapay.com/$it/donate" },
+        dbApp.metadata.openCollective?.let { it -> "https://opencollective.com/$it/donate" },
+        dbApp.metadata.bitcoin?.let { it -> "bitcoin:$it" },
+        dbApp.metadata.litecoin?.let { it -> "litecoin:$it" },
+      ),
+    ),
+  )
+
+  /**
+   * True if the app is installed (and has a launch intent) and thus the 'Open' button should be
+   * shown.
+   */
+  val showOpenButton: Boolean
+    get() = actions.launchIntent != null
+
+  val allowsBetaVersions: Boolean
+    get() = appPrefs?.releaseChannels?.contains(RELEASE_CHANNEL_BETA) == true
+
+  val ignoresAllUpdates: Boolean
+    get() = appPrefs?.ignoreAllUpdates == true
+
+  /**
+   * True if the update from [possibleUpdate] is being ignored and not already ignoring all updates
+   * anyway.
+   */
+  val ignoresCurrentUpdate: Boolean
+    get() {
+      if (ignoresAllUpdates) return false
+      val prefs = appPrefs ?: return false
+      val updateVersionCode = possibleUpdate?.versionCode ?: return false
+      return actions.ignoreThisUpdate != null && prefs.shouldIgnoreUpdate(updateVersionCode)
+    }
+
+  /** Specifies what main button should be shown. */
+  val mainButtonState: MainButtonState
+    get() =
+      if (installState.showProgress) {
+        MainButtonState.PROGRESS
+      } else if (installedVersionCode == null) { // app is not installed
+        if (versions == null) {
+          MainButtonState.LOADING
+        } else if (suggestedVersion == null) {
+          MainButtonState.NONE
+        } else {
+          MainButtonState.INSTALL
+        }
+      } else { // app is installed
+        if (versions == null) {
+          MainButtonState.LOADING
+        } else if (
+          suggestedVersion == null ||
+            suggestedVersion.versionCode <= installedVersionCode ||
+            suggestedVersion.versionCode <= (appPrefs?.ignoreVersionCodeUpdate ?: 0)
+        ) {
+          MainButtonState.NONE
+        } else {
+          MainButtonState.UPDATE
+        }
+      }
+
+  /** True if all available versions for this app are incompatible with this device. */
+  val isIncompatible: Boolean = versions?.all { !it.isCompatible } ?: false
+
+  /** True if this app has warnings, we need to show to the user. */
+  val showWarnings: Boolean
+    get() = isIncompatible || oldTargetSdk || issue != null
+
+  /**
+   * True if the targetSdk of the suggested version is so old that auto updates for this app are not
+   * available (due to system restrictions).
+   */
+  val oldTargetSdk: Boolean
+    get() {
+      val targetSdk = suggestedVersion?.packageManifest?.targetSdkVersion
+      // auto-updates are only available on SDK 31 and up
+      return if (targetSdk != null && SDK_INT >= 31) {
+        !SessionInstallManager.isAutoUpdateSupported(targetSdk)
+      } else {
+        false
+      }
+    }
+
+  val showAuthorContact: Boolean
+    get() = app.authorEmail != null || app.authorWebSite != null
+
+  val showDonate: Boolean
+    get() = donateLinks.isNotEmpty()
+}
+
+data class AppDetailsActions(
+  val installAction: (AppMetadata, PackageVersion, Any?) -> Unit,
+  val requestUserConfirmation: (InstallState.UserConfirmationNeeded) -> Unit,
+  /**
+   * A workaround for Android 10, 11, 12 and 13 where tapping outside the confirmation dialog
+   * dismisses it without any feedback for us. So when our activity resumes while we are in state
+   * [InstallState.UserConfirmationNeeded] we need to call this method, so we can manually check if
+   * our session progressed or not.
+   */
+  val checkUserConfirmation: (InstallState.UserConfirmationNeeded) -> Unit,
+  val cancelInstall: () -> Unit,
+  val onUninstallResult: (ActivityResult) -> Unit,
+  val onRepoChanged: (Long) -> Unit,
+  val onPreferredRepoChanged: (Long) -> Unit,
+  val onNotWarnWhenMetered: () -> Unit,
+  val allowBetaVersions: () -> Unit,
+  val onAntiFeaturesOnboardingSeen: () -> Unit,
+  val ignoreAllUpdates: (() -> Unit)? = null,
+  val ignoreThisUpdate: (() -> Unit)? = null,
+  val shareApk: Intent? = null,
+  val uninstallIntent: Intent? = null,
+  val launchIntent: Intent? = null,
+  val shareIntent: Intent? = null,
+)
+
+data class VersionItem(
+  val version: PackageVersion,
+  val isInstalled: Boolean,
+  val isSuggested: Boolean,
+  val isCompatible: Boolean,
+  val isSignerCompatible: Boolean,
+  val showInstallButton: Boolean,
+)
+
+enum class MainButtonState {
+  /** Versions are still loading, so we don't know if there will be an update */
+  LOADING,
+  /** App doesn't suggest install nor update */
+  NONE,
+  /** App is not installed, but can be */
+  INSTALL,
+  /** App is installed and can get updated */
+  UPDATE,
+  /** An installation or update is in progress, so no button actions should be taken now. */
+  PROGRESS,
+}
+
+data class AntiFeature(
+  val id: String,
+  val icon: Any? = null,
+  val name: String = id,
+  val reason: String? = null,
+)
+
+private fun AppVersion?.getAntiFeatures(
+  repository: Repository,
+  localeList: LocaleListCompat,
+  proxy: ProxyConfig?,
+): List<AntiFeature>? =
+  this?.antiFeatureKeys?.mapNotNull { key ->
+    val antiFeature = repository.getAntiFeatures()[key] ?: return@mapNotNull null
+    AntiFeature(
+      id = key,
+      icon = antiFeature.getIcon(localeList)?.getImageModel(repository, proxy),
+      name = antiFeature.getName(localeList) ?: key,
+      reason = getAntiFeatureReason(key, localeList),
+    )
+  }
+
+@VisibleForTesting
+internal fun getHtmlDescription(description: String?): String? {
+  return description
+    ?.replace("</?h[1-6]>".toRegex(), "")
+    ?.replace("(\\s\\(?)(https://\\S+[^\\s).])([\\s\\n).]|$)".toRegex()) {
+      val prefix = it.groups[1]?.value ?: it.value
+      val url = it.groups[2]?.value ?: it.value
+      val suffix = it.groups[3]?.value ?: it.value
+      "$prefix<a href=\"$url\">$url</a>$suffix"
+    }
+    ?.replace("(?<!</p>|ul>|</li>)\n".toRegex(), "<br>\n")
+}
+
+data class DonateLink(
+  val url: String,
+  val type: DonateType,
+  val subtitle: String?,
+)
+
+enum class DonateType {
+  GENERIC,
+  OPEN_COLLECTIVE,
+  LIBERAPAY,
+  BITCOIN,
+  LITECOIN,
+  TALER,
+}
+
+fun mapDonateLinks(links: List<String>): List<DonateLink> {
+  val typeMapping = links.associateWith<String, DonateType> { link ->
+    when {
+      link.startsWith("https://opencollective.com") -> DonateType.OPEN_COLLECTIVE
+      link.startsWith("https://liberapay.com") -> DonateType.LIBERAPAY
+      link.startsWith("bitcoin:") -> DonateType.BITCOIN
+      link.startsWith("litecoin:") -> DonateType.LITECOIN
+      link.startsWith("taler:") -> DonateType.TALER
+      else -> DonateType.GENERIC
+    }
+  }
+  val typeCounts = typeMapping.values.groupingBy { it }.eachCount()
+  return links.map { link ->
+    val type = typeMapping[link]!!  // typeMapping has all items of links as keys (see above)
+    val count = typeCounts[type]!!  // typeCount has all possible enum values as keys (see above)
+    DonateLink(
+      url = link,
+      type = type,
+      subtitle = if (count > 1) {  // only display donation/payment account when multiple links of the same type are present
+        when (type) {
+          DonateType.OPEN_COLLECTIVE, DonateType.LIBERAPAY -> {
+            try {
+              link.toUri().path?.split("/")[1]
+            } catch (e: Exception) {
+              null
+            }
+          }
+          DonateType.BITCOIN -> link.removePrefix("bitcoin:")
+          DonateType.LITECOIN -> link.removePrefix("litecoin:")
+          DonateType.TALER -> {
+            try {
+              // parse taler template-id from url string
+              link.toUri().path?.split("/")?.last()
+            } catch (e: Exception) {
+              null
+            }
+          }
+          DonateType.GENERIC -> null  // generic web links are always displayed in full and don't need a subtitle
+        }
+      } else null,
+    )
+  }
+}

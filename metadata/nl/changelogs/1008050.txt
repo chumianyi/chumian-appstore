@@ -1,0 +1,9 @@
+* stopt Onbekende Bron melding door Android 10 toestemmingsintelling #1833
+* Gesplitste toestemming: gedetailleerde locatie impliceert groffe locatie
+* Zoekbalk voorkeur op recente Android versies opgelost (dank aan @dkanada)
+* Backupregels voorkomen dat swap bron is opgeslagen
+* toetsenbord opent als zoekopdracht leegt
+* vertalingssynchronizatie met Android
+* verplicht HTTPS aan brondomeinen (GitLab, GitHub, Amazon)
+* rimpelingseffect bij links met appdetails
+* standaardicoon bij icoonloze apps

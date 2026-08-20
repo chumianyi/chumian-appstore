@@ -1,0 +1,5 @@
+* "Android App Link" niet meer ondersteund omdat het niet werkt met F-Droid en leidde tot DNS lekken.
+* Problemen door het zoeken naar iconen, schermafbeeldingen en informatie in het archief in plaats van de repo opgelost, door archief repo's een lagere prioriteit te geven (hoger op het "Manage Repo's" scherm)
+* Stoppen met bijsnijden van functiekopbalk (dank @ByteHamster!)
+* Navigatiebalk past zich aan donker thema aan (dank @MatthieuB!)
+* Verouderde code verwijderd (dank @Isira-Seneviratne!)

@@ -1,0 +1,6 @@
+* materiaalontwerp 3 (met rand tot rand, maar zonder dynamische kleur) (Dank proletarius!)
+* herontwetp repo-details schermen (Dank Thore!)
+* logcat bestandexport toegevoegd aan expert instellingen
+* Doel-SDK bijgewerkt (Android 15 voor basis en Android 11 voor volledig)
+* Terugkoppeling vanuit de app zijn pagina in systeeminstellingen torgevoegd (Dank j-m4!)
+* Gebruik appkiezer voor het delen van geïnstalleerde apps en installatiegeschiedenis (Dank Thore!)

@@ -1,0 +1,8 @@
+* Experimentelle Unterstützung für das Dearchivieren von Apps unter Android 15
+* Automatisches Hinzufügen neu installierter Apps zum Startbildschirm (Danke Dhina!)
+* Separate Teilen-Aktionen für Links/Dateien in App-Details
+* Toast anzeigen, wenn APK mehr Berechtigungen hat als erwartet
+* Interne Caches werden öfter bereinigt (Danke DerGenaue!)
+* Spenden-Abzeichen neu angeordnet (Danke Leo!)
+* Einstellung hinzugefügt, um ausländische Spiegelserver zu bevorzugen
+* Viele kleine Fehlerkorrekturen

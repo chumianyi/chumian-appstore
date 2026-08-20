@@ -1,0 +1,7 @@
+* Hỗ trợ máy chủ sao lưu chính thức cho mọi nguồn lưu trữ, tự động chọn máy chủ khả dụng
+
+* Cải thiện toàn diện giao diện, cùng với tăng độ ổn định và sửa lỗi
+
+* Quyền riêng tư mới: Chống chụp màn hình; thoát ứng dụng khi gặp sự cố nghiêm trọng
+
+* Ngôn ngữ mới: Tiếng Hàn (ko) và Tiếng Việt (vi)

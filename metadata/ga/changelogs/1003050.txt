@@ -1,0 +1,19 @@
+* Cnaipí agus nuashonruithe stádais níos iontaofa
+
+* Athchóiriú ar Shocruithe lena n-áirítear rialuithe nua úsáide sonraí
+
+* Oibriú cúlra atá feasach ar cheallraí ar Android 5.0 agus níos nuaí
+
+* Mír roghchláir a chomhroinnt le haghaidh stórtha
+
+* Tuairiscí tuairteála a mhúchadh i Socruithe
+
+* Amharcóir Staire a shuiteáil nuair a bhíonn logáil cumasaithe
+
+* Liosta Frith-Gnéithe Inchliceáilte, NoSourceSince curtha leis
+
+* Is é Android 4.0 an t-íosmhéid a dtacaítear leis anois
+
+* Feabhsuithe ollmhóra do leaganacha saincheaptha lipéadaithe bána F-Droid
+
+* Socrú saineolaithe chun leagan dífhabhtaithe + UUID a sheoladh ar íoslódáil

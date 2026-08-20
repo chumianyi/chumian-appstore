@@ -1,0 +1,606 @@
+package org.fdroid.install
+
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.content.Intent.ACTION_DELETE
+import androidx.activity.result.ActivityResult
+import androidx.annotation.UiThread
+import androidx.annotation.WorkerThread
+import androidx.core.os.LocaleListCompat
+import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
+import java.util.concurrent.ConcurrentHashMap
+import javax.inject.Inject
+import javax.inject.Singleton
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.updateAndGet
+import kotlinx.coroutines.launch
+import mu.KotlinLogging
+import org.fdroid.LocaleChooser.getBestLocale
+import org.fdroid.NotificationManager
+import org.fdroid.database.AppMetadata
+import org.fdroid.database.Repository
+import org.fdroid.download.DownloaderFactory
+import org.fdroid.download.getUri
+import org.fdroid.history.HistoryManager
+import org.fdroid.history.InstallEvent
+import org.fdroid.history.UninstallEvent
+import org.fdroid.index.v2.PackageVersion
+import org.fdroid.utils.IoDispatcher
+
+@Singleton
+class AppInstallManager
+@Inject
+constructor(
+  @param:ApplicationContext private val context: Context,
+  private val downloaderFactory: DownloaderFactory,
+  private val sessionInstallManager: SessionInstallManager,
+  private val notificationManager: NotificationManager,
+  private val historyManager: HistoryManager,
+  private val iconResolver: InstallIconResolver,
+  @param:IoDispatcher private val scope: CoroutineScope,
+) {
+
+  private val log = KotlinLogging.logger {}
+  private val apps = MutableStateFlow<Map<String, InstallState>>(emptyMap())
+  private val jobs = ConcurrentHashMap<String, Job>()
+  val appInstallStates = apps.asStateFlow()
+  val installNotificationState: InstallNotificationState
+    get() {
+      val appStates = mutableListOf<AppState>()
+      var numBytesDownloaded = 0L
+      var numTotalBytes = 0L
+      // go through all apps that have active state
+      apps.value.toMap().forEach { (packageName, state) ->
+        // assign a category to each in progress state
+        val appStateCategory =
+          when (state) {
+            is InstallState.Installing,
+            is InstallState.PreApproved,
+            is InstallState.Waiting,
+            is InstallState.Starting -> AppStateCategory.INSTALLING
+            is InstallState.Downloading -> {
+              numBytesDownloaded += state.downloadedBytes
+              numTotalBytes += state.totalBytes
+              AppStateCategory.INSTALLING
+            }
+            is InstallState.Installed -> AppStateCategory.INSTALLED
+            is InstallState.UserConfirmationNeeded -> AppStateCategory.NEEDS_CONFIRMATION
+            else -> null
+          }
+        // track app state for in progress apps
+        val appState = appStateCategory?.let {
+          // all states that get a category above must be InstallStateWithInfo
+          state as InstallStateWithInfo
+          AppState(
+            packageName = packageName,
+            category = it,
+            name = state.name,
+            installVersionName = state.versionName,
+            currentVersionName = state.currentVersionName,
+          )
+        }
+        if (appState != null) appStates.add(appState)
+      }
+      return InstallNotificationState(
+        apps = appStates,
+        numBytesDownloaded = numBytesDownloaded,
+        numTotalBytes = numTotalBytes,
+      )
+    }
+
+  fun getAppFlow(packageName: String): Flow<InstallState> {
+    return apps.map { it[packageName] ?: InstallState.Unknown }
+  }
+
+  /**
+   * Installs the given [version].
+   *
+   * @param canAskPreApprovalNow true if there will be only one approval dialog and the app is
+   *   currently in the foreground. Reasoning: The system will swallow the second or third dialog we
+   *   pop up before the user could respond to the first. Also, we are not allowed anymore to start
+   *   other activities while in the background.
+   */
+  @UiThread
+  suspend fun install(
+    packageName: String,
+    appMetadata: AppMetadata?,
+    version: PackageVersion,
+    currentVersionName: String?,
+    repo: Repository?,
+    iconModel: Any?,
+    canAskPreApprovalNow: Boolean,
+  ): InstallState {
+    if (appMetadata == null || repo == null) {
+      log.error { "Can't install app without metadata for $packageName" }
+      val error =
+        InstallState.Error(
+          msg = "App $packageName no longer in DB.",
+          name = packageName,
+          versionName = version.versionName,
+          currentVersionName = currentVersionName,
+          lastUpdated = version.added,
+          iconModel = iconModel,
+        )
+      // Write the terminal state so any prior Waiting state is cleared and the
+      // service stop logic in onStatesUpdated() has a chance to run.
+      updateAppState(packageName, error)
+      return error
+    }
+    val currentState = apps.value[packageName]
+    if (currentState?.showProgress == true && currentState !is InstallState.Waiting) {
+      log.warn { "Attempted to install $packageName with install in progress: $currentState" }
+      return currentState
+    }
+    currentCoroutineContext().ensureActive()
+    val job = scope.async {
+      startInstall(
+        appMetadata = appMetadata,
+        version = version,
+        currentVersionName = currentVersionName,
+        repo = repo,
+        iconModel = iconModel,
+        canAskPreApprovalNow = canAskPreApprovalNow,
+      )
+    }
+    // keep track of this job, in case we want to cancel it
+    return trackJob(packageName, job)
+  }
+
+  private suspend fun trackJob(packageName: String, job: Deferred<InstallState>): InstallState {
+    jobs[packageName] = job
+    // wait for job to return
+    val result =
+      try {
+        job.await()
+      } catch (_: CancellationException) {
+        InstallState.UserAborted
+      } catch (e: Exception) {
+        log.error(e) { "Unexpected install job failure for $packageName" }
+        val currentState = apps.value[packageName]
+        if (currentState is InstallStateWithInfo) {
+          InstallState.Error(msg = "${e::class.java.simpleName} ${e.message}", s = currentState)
+        } else {
+          InstallState.UserAborted
+        }
+      } finally {
+        // remove job as it has completed
+        jobs.remove(packageName)
+      }
+    updateAppState(packageName, result)
+    if (result is InstallState.Installed) {
+      val event =
+        InstallEvent(
+          time = System.currentTimeMillis(),
+          packageName = packageName,
+          name = result.name,
+          versionName = result.versionName,
+          oldVersionName = result.currentVersionName,
+        )
+      scope.launch { historyManager.append(event) }
+    }
+    return result
+  }
+
+  fun setWaitingState(
+    packageName: String,
+    name: String,
+    versionName: String,
+    currentVersionName: String,
+    lastUpdated: Long,
+  ) {
+    updateAppState(
+      packageName,
+      InstallState.Waiting(name, versionName, currentVersionName, lastUpdated),
+    )
+  }
+
+  @WorkerThread
+  private suspend fun startInstall(
+    appMetadata: AppMetadata,
+    version: PackageVersion,
+    currentVersionName: String?,
+    repo: Repository,
+    iconModel: Any?,
+    canAskPreApprovalNow: Boolean,
+  ): InstallState {
+    val startingState =
+      InstallState.Starting(
+        name = appMetadata.name.getBestLocale(LocaleListCompat.getDefault()) ?: "Unknown",
+        versionName = version.versionName,
+        currentVersionName = currentVersionName,
+        lastUpdated = version.added,
+        iconModel = iconModel,
+      )
+    updateAppState(appMetadata.packageName, startingState)
+    log.info { "Started install of ${appMetadata.packageName}" }
+    currentCoroutineContext().ensureActive()
+    // request pre-approval from user (if available)
+    val preApprovalResult =
+      sessionInstallManager.requestPreapproval(
+        app = appMetadata,
+        iconGetter = { iconResolver.resolve(iconModel) },
+        isUpdate = currentVersionName != null,
+        version = version,
+        canRequestUserConfirmationNow = canAskPreApprovalNow,
+      )
+    log.info { "Got pre-approval result $preApprovalResult for ${appMetadata.packageName}" }
+    // continue depending on result, abort early if no approval was given
+    return when (preApprovalResult) {
+      is PreApprovalResult.UserAborted -> InstallState.UserAborted
+      is PreApprovalResult.Success,
+      PreApprovalResult.NotSupported -> {
+        val newState =
+          updateAndGetAppState(appMetadata.packageName) {
+            InstallState.PreApproved(
+              name = it.name,
+              versionName = it.versionName,
+              currentVersionName = it.currentVersionName,
+              lastUpdated = it.lastUpdated,
+              iconModel = it.iconModel,
+              result = preApprovalResult,
+            )
+          }
+            as InstallState.PreApproved
+        downloadAndInstall(
+          state = newState,
+          packageName = appMetadata.packageName,
+          version = version,
+          currentVersionName = currentVersionName,
+          repo = repo,
+          iconModel = iconModel,
+        )
+      }
+      is PreApprovalResult.UserConfirmationRequired -> {
+        InstallState.PreApprovalConfirmationNeeded(
+          state = startingState,
+          version = version,
+          repo = repo,
+          sessionId = preApprovalResult.sessionId,
+          intent = preApprovalResult.intent,
+        )
+      }
+      is PreApprovalResult.Error ->
+        InstallState.Error(msg = preApprovalResult.errorMsg, s = startingState)
+    }
+  }
+
+  /** Request user confirmation for pre-approval and suspend until we get a result. */
+  @UiThread
+  suspend fun requestPreApprovalConfirmation(
+    packageName: String,
+    installState: InstallState.PreApprovalConfirmationNeeded,
+  ): InstallState? {
+    val state = apps.value[packageName] ?: error("No state for $packageName $installState")
+    if (state !is InstallState.PreApprovalConfirmationNeeded) {
+      log.error { "Unexpected state: $state" }
+      return null
+    }
+    log.info { "Requesting pre-approval confirmation for $packageName" }
+    val result =
+      try {
+        sessionInstallManager.requestUserConfirmation(installState)
+      } catch (e: Exception) {
+        log.error(e) { "Pre-approval confirmation failed for $packageName: " }
+        InstallState.Error(msg = "${e::class.java.simpleName} ${e.message}", s = installState)
+      }
+    log.info { "Pre-approval confirmation for $packageName $result" }
+    updateAppState(packageName, result)
+    return if (result is InstallState.PreApproved) {
+      // move us off the UiThread, so we can download/install this app now
+      val job = scope.async {
+        downloadAndInstall(
+          state = result,
+          packageName = packageName,
+          version = installState.version,
+          currentVersionName = installState.currentVersionName,
+          repo = installState.repo,
+          iconModel = installState.iconModel,
+        )
+      }
+      // suspend/wait for this job and track it in case we want to cancel it
+      trackJob(packageName, job)
+    } else result
+  }
+
+  @WorkerThread
+  private suspend fun downloadAndInstall(
+    state: InstallState.PreApproved,
+    packageName: String,
+    version: PackageVersion,
+    currentVersionName: String?,
+    repo: Repository,
+    iconModel: Any?,
+  ): InstallState {
+    val sessionId = (state.result as? PreApprovalResult.Success)?.sessionId
+    val coroutineContext = currentCoroutineContext()
+    coroutineContext.ensureActive()
+    // download file
+    val file = File(context.cacheDir, version.file.sha256)
+    val uri = getUri(repo.address, version.file)
+    val downloader = downloaderFactory.create(repo, uri, version.file, file)
+    val now = System.currentTimeMillis()
+    downloader.setListener { bytesRead, totalBytes ->
+      coroutineContext.ensureActive()
+      updateAndGetAppState(packageName) {
+        InstallState.Downloading(
+          name = it.name,
+          versionName = it.versionName,
+          currentVersionName = it.currentVersionName,
+          lastUpdated = it.lastUpdated,
+          iconModel = it.iconModel,
+          downloadedBytes = bytesRead,
+          totalBytes = totalBytes,
+          startMillis = now,
+        )
+      }
+    }
+    try {
+      downloader.download()
+      log.debug { "Download completed" }
+    } catch (e: Exception) {
+      if (e is CancellationException) throw e
+      log.error(e) { "Error downloading ${version.file}" }
+      val msg = "Download failed: ${e::class.java.simpleName} ${e.message}"
+      return InstallState.Error(
+        msg = msg,
+        name = state.name,
+        versionName = version.versionName,
+        currentVersionName = currentVersionName,
+        lastUpdated = version.added,
+        iconModel = iconModel,
+      )
+    }
+    currentCoroutineContext().ensureActive()
+    val newState =
+      updateAndGetAppState(packageName) {
+        InstallState.Installing(
+          name = it.name,
+          versionName = it.versionName,
+          currentVersionName = it.currentVersionName,
+          lastUpdated = it.lastUpdated,
+          iconModel = it.iconModel,
+        )
+      }
+    // 尝试静默安装（Root / Shizuku / 系统应用）
+    val silentCapability = SilentInstaller.detectCapability(context)
+    if (silentCapability.bestMethod != SilentInstaller.InstallMethod.PACKAGE_INSTALLER) {
+      log.info { "Trying silent install via ${SilentInstaller.getMethodName(silentCapability.bestMethod)} for $packageName" }
+      val silentSuccess = SilentInstaller.installSilently(context, file, silentCapability)
+      if (silentSuccess) {
+        log.info { "Silent install succeeded for $packageName" }
+        val installedState = InstallState.Installed(
+          name = newState.name,
+          versionName = newState.versionName,
+          currentVersionName = newState.currentVersionName,
+          lastUpdated = newState.lastUpdated,
+          iconModel = newState.iconModel,
+        )
+        updateAppState(packageName, installedState)
+        return installedState
+      } else {
+        log.info { "Silent install failed, falling back to system installer for $packageName" }
+      }
+    }
+    val result = sessionInstallManager.install(sessionId, packageName, newState, file)
+    log.debug { "Install result: $result" }
+    return if (result is InstallState.PreApproved && result.result is PreApprovalResult.Error) {
+      // if pre-approval failed (e.g. due to app label mismatch),
+      // then try to install again, this time not using the pre-approved session
+      sessionInstallManager.install(null, packageName, newState, file)
+    } else {
+      result
+    }
+  }
+
+  /** Request user confirmation for installation and suspend until we get a result. */
+  @UiThread
+  suspend fun requestUserConfirmation(
+    packageName: String,
+    installState: InstallState.UserConfirmationNeeded,
+  ): InstallState? {
+    val state = apps.value[packageName] ?: error("No state for $packageName $installState")
+    if (state !is InstallState.UserConfirmationNeeded) {
+      log.error { "Unexpected state: $state" }
+      return null
+    }
+    log.info { "Requesting user confirmation for $packageName" }
+    val job = scope.async { sessionInstallManager.requestUserConfirmation(installState) }
+    // keep track of this job, in case we need to cancel it
+    val result = trackJob(packageName, job) // updates app state
+    log.info { "User confirmation for $packageName $result" }
+    return result
+  }
+
+  /**
+   * A workaround for Android 10, 11, 12 and 13 where tapping outside the confirmation dialog
+   * dismisses it without any feedback for us. So when our activity resumes while we are in state
+   * [InstallState.UserConfirmationNeeded] we need to call this method, so we can manually check if
+   * our session progressed or not. If it didn't progress and the state hasn't changed, we fire up
+   * the confirmation intent again.
+   */
+  @UiThread
+  fun checkUserConfirmation(
+    packageName: String,
+    installState: InstallState.UserConfirmationNeeded,
+  ) {
+    val state =
+      apps.value[packageName]
+        ?: run {
+          // We run this method with some delay, so there's the unlikely,
+          // but possible scenario that state got cleaned up already when this code runs.
+          log.warn { "No more state for $packageName $installState" }
+          return
+        }
+    if (state !is InstallState.UserConfirmationNeeded) {
+      log.debug { "State has changed. Now: $state" }
+      return
+    }
+    val sessionInfo =
+      context.packageManager.packageInstaller.getSessionInfo(installState.sessionId)
+        ?: run {
+          // Session is gone — the installation already concluded or was abandoned externally.
+          // Transition to a terminal state so the stale UserConfirmationNeeded doesn't
+          // keep the service alive indefinitely.
+          log.error { "Session ${installState.sessionId} for $packageName is gone" }
+          updateAppState(
+            packageName,
+            InstallState.Error("Installation session is gone", installState),
+          )
+          return
+        }
+    if (sessionInfo.progress <= installState.progress) {
+      log.info { "Session did not progress: ${sessionInfo.progress} <= ${installState.progress}" }
+      // we fire up intent again to force the user to do a proper yes/no decision,
+      // so our session and our coroutine above don't get stuck
+      installState.intent.send()
+    } else {
+      log.debug { "Session has progressed, doing nothing" }
+    }
+  }
+
+  fun cancel(packageName: String) {
+    val job = jobs[packageName]
+    log.debug { "Canceling job for $packageName $job" }
+    if (job != null) {
+      job.cancel()
+    } else if (apps.value[packageName] is InstallState.Waiting) {
+      // No job was created for Waiting state (it's a deferred install placeholder).
+      // Clear it directly so the app doesn't get stuck and AppInstallService can stop.
+      log.info { "Clearing Waiting state for $packageName" }
+      updateAppState(packageName, InstallState.UserAborted)
+    }
+  }
+
+  /**
+   * Must be called after receiving the result from the [ACTION_DELETE] uninstall Intent.
+   *
+   * Note: We are not using [android.content.pm.PackageInstaller.uninstall], because on Android 10
+   * to 13 (at least) we don't get feedback when the user taps outside the confirmation dialog.
+   * Using this non-deprecated API ([ACTION_DELETE]) seems to work without issues everywhere.
+   */
+  @UiThread
+  fun onUninstallResult(
+    packageName: String,
+    name: String?,
+    activityResult: ActivityResult,
+  ): InstallState {
+    val result =
+      when (activityResult.resultCode) {
+        Activity.RESULT_OK -> InstallState.Uninstalled
+        Activity.RESULT_FIRST_USER -> InstallState.UserAborted
+        else -> InstallState.UserAborted
+      }
+    val code = activityResult.data?.getIntExtra("android.intent.extra.INSTALL_RESULT", -1)
+    log.info { "Uninstall result received: ${activityResult.resultCode} => $result ($code)" }
+    apps.updateApp(packageName) { result }
+    // not running onStatesUpdated() because we only track installs there
+    if (result == InstallState.Uninstalled) {
+      val event =
+        UninstallEvent(time = System.currentTimeMillis(), packageName = packageName, name = name)
+      scope.launch { historyManager.append(event) }
+    }
+    return result
+  }
+
+  @UiThread
+  fun clearInstallingApps() {
+    apps.update { oldApps ->
+      oldApps.toMutableMap().apply {
+        val iterator = entries.iterator()
+        while (iterator.hasNext()) {
+          val app = iterator.next()
+          if (!app.value.showProgress) {
+            val packageName = app.key
+            jobs.remove(packageName)?.cancel()
+            iterator.remove()
+          }
+        }
+      }
+    }
+  }
+
+  @UiThread
+  fun cleanUp(packageName: String) {
+    val state = apps.value[packageName] ?: return
+    if (!state.showProgress) {
+      log.info { "Cleaning up state for $packageName $state" }
+      jobs.remove(packageName)?.cancel()
+      apps.update { oldApps -> oldApps.toMutableMap().apply { remove(packageName) } }
+      onStatesUpdated()
+    }
+  }
+
+  private fun onStatesUpdated() {
+    val notificationState = installNotificationState
+    val serviceIntent = Intent(context, AppInstallService::class.java)
+    // stop foreground service, if no app is installing and it is still running
+    if (!notificationState.isInstallingSomeApp && AppInstallService.isServiceRunning) {
+      log.info { "Stopping ${AppInstallService::class.simpleName}..." }
+      context.stopService(serviceIntent)
+    }
+    if (notificationState.isInProgress) {
+      // start foreground service if at least one app is installing and not already running
+      if (notificationState.isInstallingSomeApp && !AppInstallService.isServiceRunning) {
+        try {
+          context.startService(serviceIntent)
+        } catch (e: Exception) {
+          log.error { "Couldn't start service: $e ${e.message}" }
+        }
+      }
+      notificationManager.showAppInstallNotification(notificationState)
+    } else {
+      // cancel notification if no more apps are in progress
+      notificationManager.cancelAppInstallNotification()
+    }
+  }
+
+  private fun updateAppState(packageName: String, state: InstallState) {
+    apps.updateApp(packageName) { state }
+    onStatesUpdated()
+  }
+
+  private fun updateAndGetAppState(
+    packageName: String,
+    function: (InstallStateWithInfo) -> InstallStateWithInfo,
+  ): InstallStateWithInfo {
+    val state = apps.checkAndUpdateApp(packageName, function)
+    onStatesUpdated()
+    return state
+  }
+
+  private fun MutableStateFlow<Map<String, InstallState>>.updateApp(
+    packageName: String,
+    function: (InstallState) -> InstallState,
+  ) = update { oldMap ->
+    val newMap = oldMap.toMutableMap()
+    newMap[packageName] = function(newMap[packageName] ?: InstallState.Unknown)
+    newMap
+  }
+
+  private fun MutableStateFlow<Map<String, InstallState>>.checkAndUpdateApp(
+    packageName: String,
+    function: (InstallStateWithInfo) -> InstallStateWithInfo,
+  ): InstallStateWithInfo {
+    return updateAndGet { oldMap ->
+      val oldState = oldMap[packageName]
+      check(oldState is InstallStateWithInfo) { "State for $packageName was $oldState" }
+      val newMap = oldMap.toMutableMap()
+      newMap[packageName] = function(oldState)
+      newMap
+    }[packageName]
+      as InstallStateWithInfo
+  }
+}

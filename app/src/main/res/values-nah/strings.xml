@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="updates">yancuic mochihua</string>
+    <string name="ok">Cualli</string>
+    <string name="yes">quemma</string>
+    <string name="no">Ahmo</string>
+    <string name="back">cuepa</string>
+    <string name="cancel">Tlilana</string>
+    <string name="menu_settings">ach tenanquiliztli</string>
+    <string name="menu_search">temoa</string>
+    <string name="menu_add_repo">Tlaltomelahuapixcalli yancuic</string>
+    <string name="menu_share">cotonilia</string>
+    <string name="menu_install">Tlalia</string>
+    <string name="menu_uninstall">yopehua/cuilia</string>
+    <string name="menu_upgrade">mochihua yancuic</string>
+    <string name="main_menu__categories">centlacotontli</string>
+    <string name="main_menu__swap_nearby">Namiqui</string>
+    <string name="next">Occe</string>
+    <string name="pref_language">Tlahtolcopa</string>
+    <string name="repo_details">Tlaltolmelahuapixcalli</string>
+    <string name="swap_send_fdroid">Titlani F-Droid</string>
+    <string name="SignatureMismatch">In yancuic tepoztlatlatquitl ca tocayotlilneltili ica occe amoneuhqui. Pampa titlaliz yancuic, inic ce ximocuilia achtopan. Nimitztlatlauhtia, xicchihua ihnon ihuan xicchihua occepa. (Intla ticuiliz nochi tlapohualiztli moixpohpoloz)</string>
+    <string name="installIncompatible">Inin tepoztlatlatquitl ahmo huel ca ipan motepoznonotza, ¿Ocnoma ticnequi\?</string>
+    <string name="version">Yancuic yuhcayotl</string>
+    <string name="by_author_format">Itech pohui %s</string>
+    <string name="delete">Ixpohpoloa</string>
+    <string name="install_history">cecemilhuitlacuilolli tepoztlatlatquitl otitlali</string>
+    <string name="more">Ocachi</string>
+    <string name="less">Ahmo ixquich</string>
+    <string name="not_on_same_wifi">¡Motepoznonotza ahmo ca ipan cenneneuhqui Wi-Fi otitlali! Ximoehecoa tencui inin matlatl:%s</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="swap_welcome">¡Ma ximopanoltica F-Droid!</string>
+    <string name="crash_dialog_title">F-Droid motzacua</string>
+    <string name="notification_title_single_update_available">Anehuatzi Mochihua Yancuic</string>
+    <string name="notification_title_summary_install_error">Otitlali ahmo cualli</string>
+    <string name="app_name_full">F-Droid</string>
+</resources>

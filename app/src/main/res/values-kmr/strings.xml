@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="ok">Baş e</string>
+    <string name="no">Na</string>
+    <string name="app_name_full">F-Droid</string>
+    <string name="updates">Rojanekirin</string>
+    <string name="yes">Erê</string>
+    <string name="menu_settings">Sazkarî</string>
+    <string name="menu_search">Lêgerîn</string>
+    <string name="menu_install">Saz bike</string>
+    <string name="menu_upgrade">Rojane bike</string>
+    <string name="back">Veger</string>
+    <string name="cancel">Têk bibe</string>
+    <string name="more">Bêtir</string>
+    <string name="less">Kêm</string>
+    <string name="menu_share">Parve bike</string>
+    <string name="menu_add_repo">Embareke nû</string>
+    <string name="menu_uninstall">Rake</string>
+    <string name="menu_website">Malpera tevnê</string>
+    <string name="repo_details">Embar</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="notification_title_single_update_available">Rojanekirin heye</string>
+    <string name="notification_title_summary_install_error">Sazkirin têk çû</string>
+    <string name="theme_dark">Tarî</string>
+    <string name="main_menu__categories">Kategorî</string>
+    <string name="next">Pêş</string>
+    <string name="main_menu__swap_nearby">Nêzîk</string>
+    <string name="pref_language">Ziman</string>
+    <string name="swap_welcome">Bi xêr hatî F-Droid!</string>
+    <string name="swap_send_fdroid">F-Droid bişîne</string>
+    <string name="crash_dialog_title">F-Droid têk çû</string>
+    <string name="about_title_full">Derbarê F-Droid</string>
+</resources>

@@ -1,0 +1,12 @@
+* Pelokalan deskripsi aplikasi kini sepenuhnya mengikuti daftar bahasa di Android
+Pengaturan Bahasa
+
+* Tab Terbaru mencantumkan hasil berdasarkan Pengaturan Bahasa
+
+* Tab Terbaru kini menampilkan hasil yang diurutkan berdasarkan yang terbaru terlebih dahulu (@TheLastProject @IzzySoft)
+
+* Dukungan tema dimodernisasi dan dikaitkan dengan tema bawaan Android (@proletarius101)
+
+* Hasil penelusuran ditingkatkan secara signifikan (@Tvax @gcbrown76)
+
+* Biarkan Android menjadwalkan operasi pembersihan cache latar belakang secara efisien (@Isira-Seneviratne)

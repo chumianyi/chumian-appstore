@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wifi">Wi-Fi</string>
+    <string name="not_on_same_wifi">Aaladaadu kuma jirto WiFi-ga kaydka gudaha eed hada ku dartay! Iskuday inaad ku biirto WiFi-gan: %s</string>
+    <string name="less">in</string>
+    <string name="more">in</string>
+    <string name="about_title_full">Ku saabsan</string>
+    <string name="swap_welcome">Kusoo dhawoow F-Droid!</string>
+    <string name="next">Ka</string>
+    <string name="main_menu__swap_nearby">Kuu</string>
+    <string name="menu_uninstall">Ka</string>
+    <string name="menu_install">Ku shub</string>
+    <string name="menu_share">La Wadaag</string>
+    <string name="menu_add_repo">Kaydka cusub</string>
+    <string name="menu_search">Raadi</string>
+    <string name="back">Ka noqo</string>
+    <string name="updates">Cusbonaysiinta</string>
+    <string name="app_name_full">F-Droid</string>
+    <string name="notification_title_summary_install_error">Ku shubidii ma guulaysanin</string>
+    <string name="notification_title_single_update_available">Cusboonaysiin ayaa diyaar ah</string>
+    <string name="crash_dialog_title">F-Droid way khalkhashay</string>
+    <string name="swap_send_fdroid">Dir F-Droid</string>
+    <string name="repo_details">Qayb</string>
+    <string name="pref_language">Luuqada</string>
+    <string name="main_menu__categories">Qaybaha</string>
+    <string name="menu_upgrade">Cusboonaysii</string>
+    <string name="menu_settings">Fadhiga</string>
+    <string name="cancel">Jooji</string>
+    <string name="no">Maya</string>
+    <string name="yes">Haa</string>
+    <string name="ok">Hagaag</string>
+    <string name="menu_about">Ku saabsan</string>
+</resources>

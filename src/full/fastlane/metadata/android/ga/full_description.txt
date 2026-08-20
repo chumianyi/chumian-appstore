@@ -1,0 +1,13 @@
+Is catalóg insuiteáilte d'aipeanna bogearraí libre do Android é F-Droid. Déanann aip cliant F-Droid éasca brabhsáil, suiteáil agus súil a choinneáil ar nuashonruithe ar do ghléas.
+
+Ceanglaíonn sé le haon stórtha atá comhoiriúnach le F-Droid. Tá an stór réamhshocraithe á óstáil ag f-droid.org, nach bhfuil ann ach bogearraí libre bona fide.
+
+Tá Android féin oscailte sa mhéid is go bhfuil tú saor chun APKanna a shuiteáil ó áit ar bith is mian leat, ach tá go leor cúiseanna maithe ann le F-Droid a úsáid mar do bhainisteoir aipeanna bogearraí libre:
+
+* Faigh fógra nuair a bhíonn nuashonruithe ar fáil
+* Íoslódáil agus suiteáil nuashonruithe go huathoibríoch más mian leat
+* Coinnigh súil ar leaganacha níos sine agus béite
+* Scag amach aipeanna nach bhfuil comhoiriúnach leis an ngléas
+* Aimsigh aipeanna trí chatagóirí agus tuairiscí inchuardaithe
+* Rochtain ar URLanna gaolmhara le haghaidh síntiús, cód foinse srl.
+* Fan sábháilte trí shínithe innéacs stórtha agus haiseanna APK a sheiceáil

@@ -1,0 +1,17 @@
+* Revisie Delen menu met ingebouwde opties zoals Dichtbij
+
+* Verbeterde Dichtbij workflow en navigatie
+
+* Materiaalontwerp verbeteringen (@proletarius101)
+
+* Apps zonder PNG app icoon tonen in Recent tab (@ashutoshgngwr)
+
+* Beter icoonmanagement met gelimiteerde Data/WiFi instellingen
+
+* Ondersteunt meer barcode scanners (@Lugerun)
+
+* Staat toe tonen van AntiFuncties te kiezen
+
+* Blokkeer nieuwe repo's als "Onbekende Bronnen" niet is toegestaan
+
+* Verwijder "Sta Pushberichten toe" instelling

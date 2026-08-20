@@ -1,0 +1,15 @@
+* Megosztási menü átdolgozása.
+
+* Továbbfejlesztett Közeli munkafolyamat és navigáció, hibajavítások.
+
+* Material Design fejlesztések (@proletarius101)
+
+* A PNG alkalmazásikon nélküli alkalmazások megjelennek a Legfrissebb lapon (@ashutoshgngwr)
+
+* Jobb ikonkezelés korlátolt adat/Wi-Fi beállítások mellett
+
+* Több vonalkód-leolvasó támogatása (@Lugerun)
+
+* Megjelenítendő előnytelen funkciók kiválasztása
+
+* Tárolók hozzáadásának tiltása, ha az „Ismeretlen források” tiltottak

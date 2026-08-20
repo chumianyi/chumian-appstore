@@ -1,0 +1,15 @@
+* Handhabung von Repos und Spiegeln überarbeitet, UX und Code
+
+* Vorschau auf neue Repos
+
+* Installation mit F-Droid (Basic) unterstützt nun automatische Hintergrundupdates
+
+* Unter Android 14 werden Apps mit nicht unterstützter Ziel-SDK als inkompatibel markiert #2692
+
+* Langer Klick zum Kopieren von Links, Berechtigungen Versionen in der App-Info (@Tobias_Groza)
+
+* Inkompatible Apps werden nur angezeigt, wenn in den Einstellungen erlaubt #41 (@pigpig)
+
+* Neue IPFS-Gateways-Einstellungen
+
+* Sprachauswahl pro App (@Licaon-Kter)

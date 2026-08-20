@@ -1,0 +1,8 @@
+* Používateľské rozhranie prepísané od základu pomocou Kotlin compose
+* vylepšené vyhľadávanie, vrátane vyhľadávania v popisoch a prekladoch
+* ľahšie objavovanie nových aplikácií, vrátane zvýraznenia najsťahovanejších
+* schválenie inštalácie *pred* stiahnutím
+* viacero aktualizácií/stiahnutí súčasne
+* upozorňovanie používateľa na problémy s aplikáciami (napr. zmena podpisového kľúča)
+* voliteľná farebná téma Material You
+* vylepšené filtrovanie zoznamov

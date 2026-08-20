@@ -1,0 +1,105 @@
+package org.fdroid.ui.navigation
+
+import androidx.annotation.StringRes
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Apps
+import androidx.compose.material.icons.filled.Explore
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.SportsEsports
+import androidx.compose.material.icons.filled.SwapHorizontalCircle
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation3.runtime.NavKey
+import kotlinx.serialization.Serializable
+import org.fdroid.R
+import org.fdroid.ui.icons.PackageVariant
+import org.fdroid.ui.lists.AppListType
+
+sealed interface NavigationKey : NavKey {
+
+  @Serializable
+  data object Apps : NavigationKey, MainNavKey {
+    override val label: Int = R.string.menu_apps
+    override val icon: ImageVector = Icons.Filled.Apps
+  }
+
+  @Serializable
+  data object Games : NavigationKey, MainNavKey {
+    override val label: Int = R.string.menu_games
+    override val icon: ImageVector = Icons.Filled.SportsEsports
+  }
+
+  @Serializable
+  data object Search : NavigationKey, MainNavKey {
+    override val label: Int = R.string.menu_search
+    override val icon: ImageVector = Icons.Filled.Search
+  }
+
+  @Serializable
+  data object My : NavigationKey, MainNavKey {
+    override val label: Int = R.string.menu_my
+    override val icon: ImageVector = Icons.Filled.Person
+  }
+
+  @Serializable data class AppDetails(val packageName: String) : NavigationKey
+
+  @Serializable data class AppList(val type: AppListType) : NavigationKey
+
+  @Serializable data object Repos : NavigationKey
+
+  @Serializable data class RepoDetails(val repoId: Long) : NavigationKey
+
+  @Serializable data class AddRepo(val uri: String? = null) : NavigationKey
+
+  @Serializable data object Settings : NavigationKey
+
+  @Serializable data object About : NavigationKey
+
+  @Serializable data object InstallationHistory : NavigationKey
+
+  // Full flavor special destinations kept here for simplicity
+
+  @Serializable data object Nearby : NavigationKey
+}
+
+sealed interface MainNavKey : NavKey {
+  @get:StringRes val label: Int
+  val icon: ImageVector
+}
+
+val topLevelRoutes =
+  listOf<MainNavKey>(NavigationKey.Apps, NavigationKey.Games, NavigationKey.Search, NavigationKey.My)
+
+sealed class NavDestinations(
+  val id: NavigationKey,
+  @param:StringRes val label: Int,
+  val icon: ImageVector,
+) {
+  object Repos :
+    NavDestinations(NavigationKey.Repos, R.string.app_details_repositories, PackageVariant)
+
+  object Settings :
+    NavDestinations(NavigationKey.Settings, R.string.menu_settings, Icons.Filled.Settings)
+
+  class AllApps(title: String) :
+    NavDestinations(
+      id = NavigationKey.AppList(AppListType.All(title)),
+      label = R.string.app_list_all,
+      icon = Icons.Filled.Apps,
+    )
+
+  object About : NavDestinations(NavigationKey.About, R.string.menu_about, Icons.Filled.Info)
+
+  // Full flavor special destinations kept here for simplicity
+
+  object Nearby :
+    NavDestinations(
+      id = NavigationKey.Nearby,
+      label = R.string.main_menu__swap_nearby,
+      icon = Icons.Filled.SwapHorizontalCircle,
+    )
+}
+
+val topBarMenuItems = listOf(NavDestinations.Repos, NavDestinations.Settings)

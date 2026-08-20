@@ -1,0 +1,13 @@
+* Athchóiriú a dhéanamh ar an gcaoi a léirítear stórtha d'úsáideoirí chun a dhéanamh soiléir cathain a thagann suiteáil ó áit éigin eile seachas f-droid.org.
+
+* Ceadaigh d'úsáideoirí tosaíocht an stórtha a athrú go domhanda agus in aghaidh an aip
+
+* Tá Gnéithe Frith-Saincheaptha cumasaithe anois de réir réamhshocraithe, seachas díchumasaithe
+
+* Tacaíonn sé le URLanna stórtha a fháil trí Chomhroinnt
+
+* Urramaíonn gach gníomhaíocht an téama lae/oíche
+
+* Úsáidí stórála seachtracha a nuashonrú chun oibriú le targetSdkVersion 29
+
+* F-Droid Basic nuashonraithe chun oibriú le targetSdkVersion 34

@@ -1,0 +1,3 @@
+*Arreglado un bug ao borrar aplicacións de repositorios(#568)
+
+*Actualizacións do indice moito máis rápidas

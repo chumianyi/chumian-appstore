@@ -1,0 +1,7 @@
+* Gebruik van repo's en mirrors vanuit Externe Opslag op recente uitgaven van Android gerepareerd
+* Verbeterd Wi-Fi-beheer in Dichtbij
+* De navigatiebalk herinnert zich zijn positie zelfs als F-Droid herstart
+* Nieuwe taal: Swahili
+* Opgelost dat downloaden van afbeeldingen voor repo's nog steeds index-v1 gebruikt
+* Crashes van Swap, repobeheer en meer opgelost
+* De "Downgrade' knop is verwijderd, Android staat dat niet meer toe

@@ -1,0 +1,7 @@
+* Suporte a instalações de arquivos de mídia OTA, ZIP etc.
+
+* Suporte completo para APKs assinados por múltiplas chaves
+
+* Nova tradução Tibetana
+
+* Remover aplicativos e categorias relacionados após desativar um repositório

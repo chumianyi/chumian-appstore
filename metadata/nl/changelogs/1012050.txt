@@ -1,0 +1,13 @@
+* Appbeschrijving localizatie respecteert lijsten in Android Taalinstellingen volledig
+
+* "Recent" Tab toont apps op basis van de Taalinstellingen, nieuwste eerst geordend (@TheLastProject @IzzySoft)
+
+* Zoekresultaten sterk verbeterd (@Tvax @gcbrown76)
+
+* Cache opschonen betrouwbaarder
+
+* Efficiënt cache opschonen inplannen (@Isira-Seneviratne)
+
+* Revisie van repo URL parseren voor betrouwbaar toevoegen van repo's (@projectgus)
+
+* Instemmen met F-Droid Metrics

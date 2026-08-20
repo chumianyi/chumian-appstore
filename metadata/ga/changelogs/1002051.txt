@@ -1,0 +1,17 @@
+* Bearr nó scrios an taisce go huathoibríoch nuair a bhíonn spás stórála gann
+
+* Feabhsú ar fheidhmíocht ar fheistí le cuimhne íseal
+
+* Déan cinnte go n-urramaíonn gach íoslódáil an rogha "Ar Wi-Fi amháin"
+
+* Laghdaigh úsáid cuimhne nuair a bhíonn an gléas ag rith gann
+
+* Cuir scátháin saincheaptha le haon stór trí chliceáil ar naisc, cóid QR a scanadh, srl.
+
+* Feabhsú ar roghnú scátháin uathoibríoch
+
+* Neart ceartúcháin agus feabhsuithe ar Malartú/In aice láimhe
+
+* Socrú cúis amháin le fógraí nuashonraithe athfhillteacha (#1271)
+
+* Déan cinnte go n-aithníonn F-Droid URLanna oíche F-Droid ó GitLab

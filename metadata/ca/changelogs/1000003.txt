@@ -1,0 +1,3 @@
+* Grans millores en el rendiment de la interfície d'usuari, especialment amb l'arxiu habilitat
+
+* Correcció d'errors de bloqueig

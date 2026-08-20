@@ -1,0 +1,11 @@
+* Grote revisie van Swap UI, voorbereiding voor herschrijven
+
+* Toon "Ongedaan maken" na items weggeveegd te hebben uit het "Updates" tab (dank @Hocuri!)
+
+* Omgang met ETag tijdens verbindingen met NGINX mirrors gerepareerd #1737
+
+* Problemen met "Recent" display veroorzaaakt door verkeerd omgaan met tijdzones opgelost #1757
+
+* Negeer alle onbelangrijke crashes in achterronddiensten
+
+* Gebruik de Bevoorrechtte Extensie niet als deze is uitgeschakeld in "Instellingen"

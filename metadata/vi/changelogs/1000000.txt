@@ -1,0 +1,7 @@
+* Hỗ trợ cài đặt các tệp phương tiện, OTA, ZIP, v.v.
+
+* Hỗ trợ đầy đủ các tệp APK có nhiều khóa ký
+
+* Bổ sung ngôn ngữ tiếng Tây Tạng mới
+
+* Xóa các ứng dụng và danh mục liên quan sau khi tắt nguồn lưu trữ (repo)

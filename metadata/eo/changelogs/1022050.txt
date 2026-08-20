@@ -1,0 +1,8 @@
+• prova subteno por malarĥivigi aplikaĵojn ĉe Android 15
+• aŭtomate aldoni nov-instalitajn apojn al ĉefekrano (@Dhina)
+• apartigitaj agoj Kunhavigi ligilon kaj Kunhavigi APK-dosieron
+• montri sciigon kiam apo postulas pli da permesoj ol esperata
+• pli ofte forviŝi internan kaŝmemoron por ŝpari spacon (@DerGenaue)
+• reordigitaj butonoj Donaci laŭ retejoj (@Leo)
+• agordo por preferi fremdlandajn servilojn
+• aliaj etaj erar-riparoj

@@ -1,0 +1,8 @@
+* experimentální podpora zrušení archivace aplikací v Androidu 15
+* automatické přidávání nových aplikací na domovskou stránku ve většině launcherů
+* oddělené akce sdílení odkazu a sdílení souboru
+* zobrazení zprávy, pokud má APK více oprávnění, než se očekávalo
+* častější čištění interní mezipaměti, pro uvolnění místa (díky DerGenaue!).
+* změna pořadí odznaků darů tak, aby odpovídaly webu (díky Leo!)
+* přidán přepínač pro upřednostňování zahraničních zrcadel
+* mnoho drobných oprav chyb

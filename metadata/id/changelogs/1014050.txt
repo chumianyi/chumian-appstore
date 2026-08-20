@@ -1,0 +1,17 @@
+* Perombakan menu Share untuk menggunakan opsi bawaan seperti Nearby
+
+* Peningkatan alur kerja dan navigasi Nearby dengan banyak perbaikan bug
+
+* Peningkatan desain material (@proletarius101)
+
+* Aplikasi tanpa ikon aplikasi PNG kini ditampilkan di Tab Terbaru (@ashutoshgngwr)
+
+* Manajemen ikon yang lebih baik dengan pengaturan Data/WiFi yang terbatas
+
+* Mendukung lebih banyak pemindai kode batang (@Lugerun)
+
+* Izinkan pemilihan AntiFitur yang akan ditampilkan
+
+* Blokir penambahan repo saat admin perangkat melarang "Sumber Tidak Dikenal"
+
+* Hapus pengaturan "Izinkan Permintaan Push"

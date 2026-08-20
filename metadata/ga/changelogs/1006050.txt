@@ -1,0 +1,13 @@
+* Aibhsíonn an Cluaisín is Déanaí anois aipeanna a sholáthraíonn tuairiscí, aistriúcháin, agus scáileáin
+
+* Íoslódáil uathoibríoch ó scátháin, chun íoslódálacha a bhrostú agus an t-ualach ar f-droid.org a laghdú
+
+* Díchumasaigh scátháin ag baint úsáide as lasca nua i RepoDetails (#1696)
+
+* Taisceadh íoslódála níos éifeachtaí (in aghaidh an stórais; trasna freastalaithe gréasáin éagsúla #1708)
+
+* Suiteálacha a éilíonn Foinsí Anaithnide le Síneadh Pribhléideach a shocrú (#1702)
+
+* Deisigh deilbhíní atá ar iarraidh dóibh siúd nach n-úsáideann Wi-Fi (#1592)
+
+* Aistriúcháin fheabhsaithe don chluaisín Nuashonruithe i gcomparáid leis an rogha

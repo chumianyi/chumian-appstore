@@ -1,0 +1,15 @@
+* Revisão da gestão de repositórios e espelhos, tanto UX como o código
+
+* Visualização prévia de novos repositórios
+
+* A instalação com F-Droid e F-Droid Basic agora suporta atualizações automáticas em segundo plano
+
+* No Android 14, apps com versão SDK alvo não suportada marcadas como incompatíveis #2692.
+
+* Clique longo para copiar links, permissões e versões no ecrã Detalhes da app (@Tobias_Groza)
+
+* Aplicações incompatíveis só aparecem se permitido nas Definições #41 (@pigpig)
+
+* Novas definições de gateways IPFS
+
+* Seleção de idioma por aplicação (@Licaon-Kter)

@@ -1,0 +1,12 @@
+* Appbeschrijving localizatie respecteert nu volledig Android
+  Taalinstellingen
+
+* "Recent" tab resultatenlijst is gebaseerd op Taalinstellingen
+
+* "Recent" tab toont nu nieuwste resultaten eerst geordend (@TheLastProject @IzzySoft)
+
+* Thema-ondersteuning gemodernizeerd en gekoppeld aan ingebouwde Android thema's (@proletarius101)
+
+* Zoekresultaten sterk verbeterd (@Tvax @gcbrown76)
+
+*Android efficiënt cache opschoontaken laten plannen in de achtergrond (@Isira-Seneviratne)

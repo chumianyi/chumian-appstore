@@ -1,0 +1,1 @@
+Osnovna aplikacija za trgovino z aplikacijami, ki spoštuje svobodo in zasebnost

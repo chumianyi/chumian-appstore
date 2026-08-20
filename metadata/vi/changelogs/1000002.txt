@@ -1,0 +1,7 @@
+* Ngăn chặn việc sử dụng HTTP ETag làm cookie theo dõi
+
+* Cảnh quan và bố cục ảnh chụp màn hình được cải thiện
+
+* Dọn dẹp triệt để các tệp tạm và bộ nhớ đệm
+
+* Sửa các lỗi liên quan đến giao diện tối

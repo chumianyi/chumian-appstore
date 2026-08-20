@@ -1,0 +1,7 @@
+* utilitzeu canals de notificació per un control més precís (@Isira-Seneviratne)
+* compartiu aplicacions mitjançant Direct Share des dels detalls de l'aplicació (@fynngodau)
+* l'última pestanya mostrarà millors resultats en dispositius on la llengua sigui diferent de l'anglès
+* actualitzacions de les biblioteques principals (Jackson, androidx, gradle, etc.)
+* compatibilitat amb l'etiquetatge d'elements permesos més fi
+
+Gràcies als nous col·laboradors! @fynngodau @projectgus @glennmen @Isira-Seneviratne

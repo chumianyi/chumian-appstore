@@ -1,0 +1,7 @@
+* Unterstützung offizieller Spiegel für jedes Repo, mit automatischer Auswahl je nach Verfügbarkeit
+
+* Viele UI-Verschönerungen, sowie Stabilitäts- und Fehlerlösungen
+
+* Neue Datenschutzeinstellungen: Bildschirmfotos verhindern; im Notfall beenden
+
+* Neue Übersetzungen: Koreanisch (ko) und Vietnamesisch (vi)

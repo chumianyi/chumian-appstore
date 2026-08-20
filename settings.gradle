@@ -1,0 +1,14 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        google()
+        gradlePluginPortal()
+    }
+}
+
+include ':app'
+include ':libs:core'
+include ':libs:sharedTest'
+include ':libs:download'
+include ':libs:index'
+include ':libs:database'

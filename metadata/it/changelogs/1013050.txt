@@ -1,0 +1,17 @@
+* Supporto dei temi legato ai temi Android integrati
+
+* Nuove notifiche nel banner superiore: "Nessuna connessione" e "Nessun dato o Wi-Fi abilitato"
+
+* Migliorato il supporto di mirror e repo USB-OTG e su scheda SD
+
+* Rimossi aggiornamenti ripetuti della libreria Trichrome
+
+* Altre modifiche per seguire il Material Design
+
+* Migliorato il badge OpenCollective
+
+* Rifatto il caricamento delle icone con Glide
+
+* Nuova icona adattiva
+
+* Modernizzazione dei colori

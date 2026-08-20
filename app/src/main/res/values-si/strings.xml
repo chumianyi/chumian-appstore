@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_uninstall">අස්ථාපනය කරන්න</string>
+    <string name="menu_install">ස්ථාපනය කරන්න</string>
+    <string name="menu_share">බෙදාගන්න</string>
+    <string name="menu_search">සෙවීම</string>
+    <string name="menu_settings">සැකසීම්</string>
+    <string name="cancel">අවලංගු කරන්න</string>
+    <string name="back">ආපසු</string>
+    <string name="no">නැත</string>
+    <string name="yes">ඔව්</string>
+    <string name="ok">හරි</string>
+    <string name="updates">යාවත්කාලීන</string>
+    <string name="app_name_full">එෆ්-ඩ්‍රොයිඩ්</string>
+    <string name="more">තව</string>
+    <string name="menu_overflow_description">තවත් විකල්ප</string>
+    <string name="swap_scan_qr">QR කේතය</string>
+    <string name="installing">ස්ථාපනය කරමින්…</string>
+    <string name="disabled">අබල කර ඇත</string>
+    <string name="next">මීලඟ</string>
+    <string name="allow">අවසර දෙන්න</string>
+    <string name="swap_connecting">සම්බන්ධ වෙමින්</string>
+    <string name="delete">මකන්න</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="apps">යෙදුම්</string>
+    <string name="pref_language">භාෂාව</string>
+    <string name="install_history">ස්ථාපන ඉතිහාසය</string>
+    <string name="menu_add_repo">නව ගබඩාව</string>
+    <string name="crash_dialog_title">F-Droid බිඳ වැටී ඇත</string>
+    <string name="notification_title_single_update_available">අප්ඩේට් ඇත</string>
+    <string name="notification_title_summary_install_error">ඉන්ස්ටොල් කිරීම අසාර්ථකයි</string>
+    <string name="less">අඩු</string>
+    <string name="installIncompatible">යෙදුම ඔබගේ උපාංගය සමඟ නොගැලපේ, කෙසේ වෙතත් ස්ථාපනය කරන්නද\?</string>
+    <string name="by_author_format">%s විසින්</string>
+    <string name="version">අනුවාදය</string>
+    <string name="repo_details">ගබඩාව</string>
+    <string name="menu_upgrade">යාවත්කාලීන කරන්න</string>
+    <string name="main_menu__categories">කාණ්ඩ</string>
+    <string name="swap_welcome">F-Droid වෙත සාදරයෙන් පිළිගනිමු!</string>
+    <string name="not_on_same_wifi">ඔබ දැන් එකතු කළ Local Repo හා ඔබගේ Wi-Fi ජාලය එකිනෙක සමාන නොවේ. මෙම ජාලයට සම්බන්ධ වීමට උත්සාහ කරන්න: %s</string>
+    <string name="swap_send_fdroid">F-Droid යවන්න</string>
+    <string name="SignatureMismatch">නව අනුවාදය පැරණි එකට වෙනස් යතුරකින් අත්සන් කර ඇත. නව අනුවාදය ස්ථාපනය කිරීමට, පැරණි එක මුලින්ම අස්ථාපනය කළ යුතුය. කරුණාකර මෙය කර නැවත උත්සාහ කරන්න. (අස්ථාපනය කිරීම යෙදුම මගින් ගබඩා කර ඇති ඕනෑම අභ්‍යන්තර දත්ත මකා දමන බව සලකන්න)</string>
+    <string name="main_menu__swap_nearby">ළඟ</string>
+    <string name="versions">අනුවාද</string>
+    <string name="about_version">අනුවාදය</string>
+</resources>

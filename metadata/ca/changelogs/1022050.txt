@@ -1,0 +1,8 @@
+* compatibilitat experimental amb desarxivar aplicacions a Android 15
+* addició automàtica de les aplicacions noves instal·lades a la pantalla d'inici de la majoria de llançadors (Gràcies, Dhina!)
+* accions independents per a compartir enllaç i accions en els detalls de l'aplicació
+* mostra un missatge quan l'APK tingui més permisos dels esperats
+* neteja les memòries cau internes més sovint per alliberar espai (Gràcies, DerGenaue!)
+* reordena les insígnies de donació per a coincidir amb el lloc web (Gràcies, Leo!)
+* afegida a la configuració una opció per a preferir miralls estrangers
+* moltes correccions d'errors petites

@@ -1,0 +1,11 @@
+* Refonte majeure de l'interface utilisateur de swap, en vue d'une réécriture
+
+* Affichage de « Annuler » après avoir balayé des éléments de l'onglet « Mises à jour » (merci @Hocuri !)
+
+* Correction de la gestion des ETag lors de la connexion aux miroirs NGINX #1737
+
+* Correction des problèmes d'affichage de la section « Dernières mises à jour » causés par une mauvaise gestion des fuseaux horaires #1757
+
+* Ignorer tous les plantages sans importance dans les services d'arrière-plan
+
+* Ne pas utiliser l'extension privilégiée si elle est désactivée dans les « Paramètres »

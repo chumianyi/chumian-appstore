@@ -1,0 +1,7 @@
+* Thêm cử chỉ vuốt cho thẻ Cập nhật
+
+* Hiển thị cảnh báo đi kèm thao tác xử lý trong thẻ Cập nhật đối với các lỗ hổng đã biết
+
+* Cập nhật các bản dịch ngôn ngữ
+
+* Sửa các lỗi giao diện tối

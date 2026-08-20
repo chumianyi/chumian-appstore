@@ -1,0 +1,7 @@
+* Amélioration de la création de liens vers les URL dans les descriptions des applications
+
+* Amélioration de la gestion des cartes SD et de l'USG-OTG dans Nearby
+
+* Modernisation du code et remplacement des images PNG par des images vectorielles (merci @isira-seneviratne !)
+
+* Prise en charge des URL de dépôts plus longues pour les miroirs GitCDN, RawGit, etc.

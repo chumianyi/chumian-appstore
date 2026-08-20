@@ -1,0 +1,15 @@
+CATATAN: Versi Basic dari Klien F-Droid memiliki fitur yang lebih terbatas (misalnya, tidak ada berbagi terdekat dan tidak ada fitur panik). Versi ini menargetkan Android 13 dan dapat melakukan pembaruan otomatis tanpa ekstensi istimewa atau akses root.
+
+F-Droid adalah katalog aplikasi perangkat lunak bebas yang dapat dipasang untuk Android. Aplikasi klien F-Droid memudahkan penelusuran, pemasangan, dan pemantauan pembaruan di perangkat Anda.
+
+Aplikasi ini terhubung ke repositori apa pun yang kompatibel dengan F-Droid. Repositori bawaan dihosting di f-droid.org, yang hanya berisi perangkat lunak bebas yang bona fide.
+
+Android sendiri bersifat terbuka dalam artian Anda bebas memasang APK dari mana saja, tetapi ada banyak alasan bagus untuk menggunakan F-Droid sebagai pengelola aplikasi perangkat lunak bebas Anda:
+
+* Mendapat notifikasi saat pembaruan tersedia
+* Mengunduh dan memasang pembaruan secara otomatis (opsional)
+* Memantau versi lama dan versi beta
+* Memfilter aplikasi yang tidak kompatibel dengan perangkat
+* Menemukan aplikasi melalui kategori dan deskripsi yang dapat dicari
+* Mengakses URL terkait untuk donasi, kode sumber, dll.
+* Tetap aman dengan memeriksa tanda tangan indeks repo dan hash APK

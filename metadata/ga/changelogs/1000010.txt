@@ -1,0 +1,21 @@
+Is é F-Droid 1.0!
+
+Tá go leor athruithe móra san áireamh sa scaoileadh seo:
+
+* Sreabhadh oibre athchóirithe go hiomlán chun aipeanna a nuashonrú
+
+* Achoimrí agus tuairiscí ar aipeanna atá inaistrithe go hiomlán
+
+* An chuid "Cad atá Nua" chun athruithe sa scaoileadh reatha a thaispeáint
+
+* Scáileáin agus grafaicí gné
+
+* Tacaíocht le comhaid meán, OTA, ZIP, srl. a shuiteáil
+
+* Cosaint fheabhsaithe i gcoinne rianaithe (HTTP ETag, TLS, srl.)
+
+* Nuashonruithe cúlra go hiomlán le Síneadh Pribhléideach
+
+* Aibhsiú a dhéanamh ar shíntiúis do fhorbróirí aipeanna
+
+* Nuashonruithe innéacs i bhfad níos tapúla

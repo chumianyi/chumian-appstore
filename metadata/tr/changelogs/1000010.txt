@@ -1,0 +1,21 @@
+F-Droid 1.0!
+
+Bu sürüm birçok büyük değişiklik içeriyor:
+
+* Uygulamaları güncellemek için tamamen elden geçirilmiş iş akışı
+
+* Tamamen çevrilebilir uygulama özetleri ve açıklamaları
+
+* Mevcut sürümdeki değişiklikleri gösteren "Yenilikler" bölümü
+
+* Ekran görüntüleri ve özellik grafikleri
+
+* Medya, OTA, ZIP vb. dosyaları yükleme desteği
+
+* Takibe karşı geliştirilmiş koruma (HTTP ETag, TLS, vb.)
+
+* Ayrıcalıklı Uzantı ile tam arka plan güncellemeleri
+
+* Uygulama geliştiricisi için bağış vurgusu
+
+* Çok daha hızlı indeks güncellemeleri

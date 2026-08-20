@@ -1,0 +1,7 @@
+* 使用通知頻道進行更精細的控制 (@Isira-Seneviratne)
+* 改進多語系的語言選取 (@spacecowboy/@bubu)
+* 「最新」分頁在非英語系裝置上將顯示更好的結果
+* 更新核心函式庫 (Jackson、androidx、gradle 等)
+* 改進白牌支援
+
+感謝新貢獻者們！@spacecowboy @projectgus @glennmen @Isira-Seneviratne

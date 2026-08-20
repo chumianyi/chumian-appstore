@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no">არა</string>
+    <string name="ok">დიახ</string>
+    <string name="menu_share">გაზიარება</string>
+    <string name="updates">განახლებები</string>
+    <string name="menu_add_repo">ახალი რეპოზიტორია</string>
+    <string name="back">უკან</string>
+    <string name="menu_search">ძებნა</string>
+    <string name="yes">დიახ</string>
+    <string name="cancel">გაუქმება</string>
+    <string name="menu_settings">პარამეტრები</string>
+    <string name="menu_install">დაყენება</string>
+    <string name="version">ვერსია</string>
+    <string name="by_author_format">%s-სგან</string>
+    <string name="delete">წაშლა</string>
+    <string name="more">მეტი</string>
+    <string name="menu_overflow_description">სხვა ვარიანტები</string>
+    <string name="less">ნაკლები</string>
+    <string name="menu_uninstall">წაშლა</string>
+    <string name="menu_upgrade">განახლება</string>
+    <string name="main_menu__swap_nearby">ახლო</string>
+    <string name="next">შემდეგი</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="crash_dialog_title">F-Droid-ის შეცდომა</string>
+    <string name="notification_title_summary_install_error">დაყენების შეცდომა</string>
+    <string name="main_menu__categories">კატეგორიები</string>
+    <string name="pref_language">ენა</string>
+    <string name="swap_welcome">მოგესალმებით F-Droid-ში!</string>
+    <string name="repo_details">რეპოზიტორია</string>
+    <string name="swap_send_fdroid">F-Droid გაგზავნა</string>
+    <string name="notification_title_single_update_available">ხელმისაწვდომია განახლება</string>
+    <string name="installIncompatible">აპი შეუთავსებელია თქვენს მოწყობილობასთან. მაინც დავაყენო\?</string>
+    <string name="about_version">ვერსია</string>
+    <string name="about_license">ლიცენზია</string>
+    <string name="app_suggested">შეთავაზებულია</string>
+    <string name="app_incompatible">შეუთავსებელი</string>
+    <string name="app_installed">დაყენებულია</string>
+    <string name="app__install_downloaded_update">განახლება</string>
+    <string name="repo_add_add">დამატება</string>
+    <string name="links">ბმულები</string>
+    <string name="versions">ვერსიები</string>
+    <string name="menu_open">გახსნა</string>
+    <string name="menu_website">ვებგვერდი</string>
+    <string name="allow">დაშვება</string>
+    <string name="theme">თემა</string>
+    <string name="menu_issues">პრობლემები</string>
+    <string name="menu_changelog">ცვლილებების ჟურნალი</string>
+    <string name="menu_video">ვიდეო</string>
+    <string name="menu_translation">თარგმანი</string>
+    <string name="menu_bitcoin">Bitcoin</string>
+    <string name="menu_litecoin">Litecoin</string>
+    <string name="display">ჩვენება</string>
+    <string name="privacy">კონფიდენციალობა</string>
+    <string name="icon">ხატულა</string>
+    <string name="panic_app_setting_none">არაფერი</string>
+    <plurals name="repo_num_apps_text">
+        <item quantity="one">1 აპი</item>
+        <item quantity="other">%d აპი</item>
+    </plurals>
+    <plurals name="notification_summary_app_updates">
+        <item quantity="one">ხელმისაწვდომია %1$d განახლება</item>
+        <item quantity="other">ხელმისაწვდომია %1$d განახლება</item>
+    </plurals>
+</resources>

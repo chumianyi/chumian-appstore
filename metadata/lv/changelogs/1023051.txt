@@ -1,0 +1,6 @@
+* materiālais izskats 3 (ar no malas līdz malai, bet bez pielāgojošām krāsām) (Paldies, proletarius!)
+* pārizveidoti glabātavu informācijas skati (Paldies, Thore!)
+* lietpratēju iestatījumos pievienota logcat datnes izguve
+* atjaunināts mērķa SDK (Android 15 pamata un Android 11 pilnajai)
+* pievienota atgriešanās saite no lietotnes lapas sistēmas iestatījumos (Paldies, j-m4!)
+* uzstādīto lietotņu un uzstādīšanas vēstures kopīgošanai tiek izmantots lietotņu atlasītājs (Paldies, Thore!)

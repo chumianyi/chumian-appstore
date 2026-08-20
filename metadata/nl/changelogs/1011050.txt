@@ -1,0 +1,7 @@
+* Verbeterde linkificatie van URLs in appbeschrijvingen
+
+* Verbeterde omgang met SDCards en USG-OTG in Nearby
+
+* Code gemodernizeerd ennPNGs omgewisseld met vectors (dank @isira-seneviratne!)
+
+* Herkent langere repo URLs om GitCDN/RawGit/etc. mirrors te ondersteunen

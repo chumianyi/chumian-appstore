@@ -1,0 +1,227 @@
+import javax.xml.parsers.DocumentBuilderFactory
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+plugins {
+  alias(libs.plugins.android.application)
+  alias(libs.plugins.android.ksp)
+  alias(libs.plugins.android.hilt)
+  alias(libs.plugins.jetbrains.kotlin.plugin.serialization)
+  alias(libs.plugins.jetbrains.compose.compiler)
+  alias(libs.plugins.screenshot)
+  alias(libs.plugins.ktfmt)
+}
+
+android {
+  namespace = "org.fdroid"
+  compileSdk = libs.versions.compileSdk.get().toInt()
+
+  defaultConfig {
+    applicationId = "com.chumian.appstore"
+    minSdk = 24
+    targetSdk = 37
+    versionCode = 2000041
+    versionName = "2.0-rc1"
+
+    testInstrumentationRunner = "org.fdroid.HiltTestRunner"
+    ndk { abiFilters += listOf("arm64-v8a") }
+  }
+
+  // filter out incomplete translations from stable releases (which end in 50+)
+  val isStableRelease = (defaultConfig.versionCode ?: 0) % 100 >= 50
+  if (isStableRelease) {
+    androidResources {
+      localeFilters.addAll(getLocalesConfig(file("src/main/res/xml/locales_config.xml")))
+    }
+  }
+
+  buildTypes {
+    all { buildConfigField("String", "ACRA_REPORT_EMAIL", "\"reports@f-droid.org\"") }
+    getByName("release") {
+      isMinifyEnabled = true
+      isShrinkResources = true
+      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+    }
+    getByName("debug") {
+      applicationIdSuffix = ".debug"
+      versionNameSuffix = "-debug"
+      isDebuggable = true
+    }
+  }
+  flavorDimensions += listOf("variant", "release")
+  productFlavors {
+    create("basic") {
+      dimension = "variant"
+      applicationIdSuffix = ".basic"
+    }
+    create("full") {
+      dimension = "variant"
+      applicationIdSuffix = ""
+    }
+    create("default") { dimension = "release" }
+    create("nightly") {
+      dimension = "release"
+      versionCode = (System.currentTimeMillis() / 1000 / 60).toInt()
+      versionNameSuffix = "-$gitHash"
+      applicationIdSuffix = ".nightly"
+    }
+  }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
+  buildFeatures {
+    compose = true
+    buildConfig = true
+  }
+  packaging {
+    resources { excludes += listOf("META-INF/LICENSE.md", "META-INF/LICENSE-notice.md") }
+  }
+  lint {
+    lintConfig = file("lint.xml")
+    textReport = true
+  }
+  @Suppress("UnstableApiUsage")
+  experimentalProperties["android.experimental.enableScreenshotTest"] = true
+}
+
+androidComponents {
+  beforeVariants { variantBuilder ->
+    if (
+      variantBuilder.buildType == "debug" &&
+        variantBuilder.productFlavors.contains("release" to "nightly")
+    ) {
+      // no debug builds for nightly version,
+      // so we can test proguard minification in production
+      variantBuilder.enable = false
+    }
+  }
+}
+
+dependencies {
+  implementation(project(":libs:index"))
+  implementation(project(":libs:database"))
+  implementation(project(":libs:download"))
+  implementation(libs.kotlinx.serialization.json)
+  implementation(platform(libs.androidx.compose.bom))
+  implementation(libs.androidx.core.ktx)
+  implementation(libs.androidx.appcompat)
+  implementation(libs.androidx.lifecycle.runtime.ktx)
+  implementation(libs.androidx.work.runtime.ktx)
+  implementation(libs.androidx.hilt.work)
+  implementation(libs.androidx.activity.compose)
+  implementation(libs.androidx.ui)
+  implementation(libs.androidx.ui.graphics)
+  implementation(libs.androidx.compose.material.icons.extended)
+  implementation(libs.androidx.lifecycle.viewmodel.compose)
+  implementation(libs.androidx.compose.material3.adaptive.navigation)
+  implementation(libs.androidx.compose.material3.adaptive.navigation3)
+  implementation(libs.androidx.compose.ui.tooling.preview)
+  implementation(libs.androidx.compose.material3)
+
+  implementation(libs.androidx.navigation3.ui)
+  implementation(libs.androidx.navigation3.runtime)
+  implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+  implementation(libs.kotlinx.serialization.core)
+
+  implementation(libs.molecule.runtime)
+  implementation(libs.coil.compose)
+  implementation(libs.compose.hints)
+  implementation(libs.compose.preference)
+
+  implementation(libs.slf4j.api)
+  implementation(libs.logback.android)
+  implementation(libs.microutils.kotlin.logging)
+
+  implementation(libs.acra.mail)
+  implementation(libs.acra.dialog)
+  implementation("com.journeyapps:zxing-android-embedded:4.3.0") { isTransitive = false }
+  implementation(libs.zxing.core)
+
+  implementation(libs.okhttp)
+
+  implementation(libs.hilt.android)
+  implementation(libs.androidx.hilt.navigation.compose)
+  ksp(libs.hilt.android.compiler)
+  ksp(libs.androidx.hilt.compiler)
+  ksp(libs.kotlin.metadata.jvm) // needed if Hilt doesn't support latest Kotlin version
+
+  debugImplementation(libs.androidx.compose.ui.tooling)
+  debugImplementation(libs.androidx.ui.test.manifest)
+
+  "fullImplementation"(libs.material)
+  "fullImplementation"(libs.androidx.documentfile)
+  "fullImplementation"(libs.androidx.localbroadcastmanager)
+  "fullImplementation"(libs.guardianproject.panic)
+  "fullImplementation"(libs.bcpkix.jdk15to18)
+  "fullImplementation"(libs.jmdns)
+  "fullImplementation"(libs.nanohttpd)
+  "fullImplementation"(libs.commons.io)
+  "fullImplementation"(libs.commons.net)
+
+  testImplementation(libs.junit)
+  testImplementation(kotlin("test"))
+  testImplementation(libs.mockk)
+  testImplementation(libs.robolectric)
+  testImplementation(libs.slf4j.simple)
+  testImplementation(libs.turbine)
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.androidx.core.testing)
+
+  androidTestImplementation(libs.kotlin.test)
+  androidTestImplementation(libs.kotlin.reflect)
+  androidTestImplementation(libs.mockk.android)
+  androidTestImplementation(libs.androidx.test.core.ktx)
+  androidTestImplementation(libs.androidx.test.ext.junit)
+  androidTestImplementation(libs.androidx.work.testing)
+  androidTestImplementation(libs.androidx.espresso.core)
+  androidTestImplementation(platform(libs.androidx.compose.bom))
+  androidTestImplementation(libs.androidx.ui.test.junit4)
+  androidTestImplementation(libs.androidx.test.uiautomator)
+  androidTestImplementation(libs.coil.test)
+  androidTestImplementation(libs.coil.network.okhttp)
+  androidTestImplementation(libs.turbine)
+  androidTestImplementation(libs.hilt.android.testing)
+  kspAndroidTest(libs.hilt.android.compiler)
+
+  screenshotTestImplementation(libs.screenshot.validation.api)
+}
+
+kotlin { compilerOptions { jvmTarget = JvmTarget.JVM_17 } }
+
+ktfmt { googleStyle() }
+
+composeCompiler {
+  reportsDestination = layout.buildDirectory.dir("compose_compiler")
+  metricsDestination = layout.buildDirectory.dir("compose_compiler")
+  stabilityConfigurationFiles.add(layout.projectDirectory.file("compose-stability.conf"))
+}
+
+val gitHash: String
+  get() {
+    val process =
+      ProcessBuilder("git", "rev-parse", "--short=8", "HEAD")
+        .directory(rootDir)
+        .redirectErrorStream(true)
+        .start()
+    process.waitFor() // Ensure the command completes
+    return process.inputStream.use { it.readBytes().decodeToString().trim() }
+  }
+
+fun getLocalesConfig(file: File): List<String> {
+  val doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file)
+  val nodes = doc.getElementsByTagName("locale")
+  return (0 until nodes.length).map {
+    nodes.item(it).attributes.getNamedItem("android:name").nodeValue.replace("-", "-r")
+  }
+}
+
+// workaround for https://issuetracker.google.com/issues/430260686
+// also https://issuetracker.google.com/issues/469819154
+// and https://issuetracker.google.com/issues/444048026
+tasks.withType<com.android.compose.screenshot.tasks.PreviewScreenshotValidationTask> {
+  maxHeapSize = "4g"
+}
+
+tasks.withType<com.android.compose.screenshot.tasks.PreviewScreenshotUpdateTask> {
+  maxHeapSize = "4g"
+}

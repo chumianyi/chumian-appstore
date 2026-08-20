@@ -1,0 +1,26 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'https://maven.google.com/' }
+    }
+}
+plugins {
+    alias libs.plugins.android.application apply false
+    alias libs.plugins.android.multiplatform.library apply false
+    alias libs.plugins.android.library apply false
+    alias libs.plugins.android.ksp apply false
+    alias libs.plugins.android.hilt apply false
+    alias libs.plugins.jetbrains.kotlin.multiplatform apply false
+    alias libs.plugins.jetbrains.kotlin.plugin.serialization apply false
+    alias libs.plugins.jetbrains.compose.compiler apply false
+    alias libs.plugins.jetbrains.dokka apply false
+    alias libs.plugins.vanniktech.maven.publish apply false
+    alias libs.plugins.screenshot apply false
+    alias libs.plugins.ktfmt apply false
+}
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url 'https://maven.google.com/' }
+    }
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_issues">ربړې</string>
+    <string name="menu_video">وېډيو</string>
+    <string name="menu_website">ګورتځی</string>
+    <string name="swap_send_fdroid">اېف-ډراېډ واستوئ</string>
+    <string name="apps">کاریالونه</string>
+    <string name="swap_scan_qr">د QR کوډ</string>
+    <string name="swap_choose_apps">کاریالونه ټاکل</string>
+    <string name="swap_wifi_device_name">د وزلې نوم</string>
+    <string name="swap_welcome">اېف-ډروېډ ته ښه راغلاست!</string>
+    <string name="pref_language">ژبه</string>
+    <string name="next">بل</string>
+    <string name="main_menu__swap_nearby">څرمه</string>
+    <string name="main_menu__categories">ټولۍ</string>
+    <string name="menu_upgrade">اوسمهالول</string>
+    <string name="menu_uninstall">نالګول</string>
+    <string name="menu_install">لګول</string>
+    <string name="menu_settings">امستنې</string>
+    <string name="no">نه</string>
+    <string name="yes">هو</string>
+    <string name="ok">سمه ده</string>
+    <string name="updates">اوسمهالیزونه</string>
+    <string name="app_name_full">اېف-ډراېډ</string>
+    <string name="display">ښوونه</string>
+    <string name="menu_litecoin">لاېټکوېن</string>
+    <string name="menu_bitcoin">بېټکوېن</string>
+    <string name="menu_translation">ژباړه</string>
+    <string name="menu_source">سرچينې کوډ</string>
+</resources>

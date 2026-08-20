@@ -1,0 +1,13 @@
+* Guia recente agora destaca apps que tem descrições, traduções, capturas de tela
+
+* Download auto. de espelhos, para acelerar downloads e reduzir a carga em f-droid.org
+
+* Desative os espelhos usando novos switches em RepoDetail
+
+* Cache de download mais eficiente (por repos., em diferentes servidores da Web)
+
+* Corrige instalações que exigem Fontes Desconhecidas com Extensão Privilegiada
+
+* Corrige ícones ausentes sem o uso de Wi-Fi
+
+* Traduções melhoradas para guia Atualizações vs preferência

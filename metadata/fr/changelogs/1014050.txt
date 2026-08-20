@@ -1,0 +1,17 @@
+* Refonte du menu « Partager » pour utiliser les options intégrées telles que « À proximité »
+
+* Amélioration du fonctionnement et de la navigation de « À proximité », avec de nombreuses corrections de bugs
+
+* Améliorations du Material Design (@proletarius101)
+
+* Les applications sans icône au format PNG s'affichent désormais dans l'onglet « Récentes » (@ashutoshgngwr)
+
+* Meilleure gestion des icônes avec les paramètres de données mobiles/Wi-Fi limités
+
+* Prise en charge d'un plus grand nombre de scanners de codes-barres (@Lugerun)
+
+* Possibilité de choisir les « AntiFeatures » à afficher
+
+* Blocage de l'ajout de dépôts lorsque l'administrateur de l'appareil désactive les « Sources inconnues »
+
+* Suppression du paramètre « Autoriser les demandes push »

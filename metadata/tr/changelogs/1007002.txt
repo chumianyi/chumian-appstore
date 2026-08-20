@@ -1,0 +1,1 @@
+* USB OTG flash sürücüler yakındaki depolar ve yansılar olarak kullanılabilir

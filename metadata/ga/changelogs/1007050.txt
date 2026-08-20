@@ -1,0 +1,7 @@
+* athchóiriú mór ar Chomhéadan Úsáideora an Mhalartaithe, chun ullmhú le haghaidh athscríobh na n-inneall
+* taispeáin "cealaigh" tar éis míreanna a shlaipeáil ón táb Nuashonruithe (go raibh maith agat @Hocuri!)
+* socraigh fadhbanna leis an taispeántas "Is Déanaí" de bharr mí-láimhseála criosanna ama #1757
+* neamhaird a dhéanamh ar aon tuairteanna neamhthábhachtacha i seirbhísí cúlra
+* athchóiriú déanta ar an malartú in aice láimhe ag baint úsáide as AP hotspot an ghléis
+* cuir freagraí scaoill nua leis: díshuiteálann aipeanna agus athshocraíonn stórtha go réamhshocraithe
+* is féidir tiomántáin splanc USB OTG a úsáid mar stórtha agus scátháin in aice láimhe

@@ -1,0 +1,11 @@
+* Przeprojektowany aktualizator repozytorium, aby aktualizacje w tle były bardziej niezawodne
+* Rozdzielenie nazwy i podsumowania na listach aplikacji dla lepszej czytelności
+* Wyświetlanie ostrzeżenia, gdy aplikacji nie można zaktualizować z preferowanego repozytorium
+* Aplikacje ukierunkowane na SDK 24 są niekompatybilne z urządzeniami z Androidem 15
+* Lepsza obsługa mirrorów w podglądzie „Dodaj repo” (dzięki Thore!)
+* Włączenie nienadzorowanych aktualizacji aplikacji na urządzeniach Xiaomi bez MIUI (dzięki Irate!)
+* Zaufaj certyfikatom roota dodanym przez użytkownika (Dzięki B.!)
+* Naprawiono niewrażliwe na wielkość liter wyszukiwanie zawierające znaki diakrytyczne (Dzięki Tobias!)
+* Aktualizacja opisów anty-funkcji (dzięki Licaon!)
+* Dodanie anty-funkcji sieci na uwięzi (Dzięki linsui!)
+* Ignorowanie białych znaków podczas dodawania repozytoriów lustrzanych (Dzięki Tobias!)

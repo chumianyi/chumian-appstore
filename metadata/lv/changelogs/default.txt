@@ -1,0 +1,8 @@
+* Saskarne pārrakstīta no jauna ar Kotlin compose
+* Uzlabota meklēšana, meklē arī aprakstos un tulkojumos
+* Vieglāka jaunu lietotņu atklāšana, kā arī lejupielādētāko izcelšana
+* Uzstādīšanas apstiprinājums *pirms* lejupielādēšanas
+* Vairāki vienlaicīgi atjauninājumi/lejupielādes
+* Paziņošana lietotājam par lietotņu nepilnībām (piem., mainīta parakstīšanas atslēga)
+* Izvēles Material You izskats
+* Uzlabota sarakstu atsijāšana

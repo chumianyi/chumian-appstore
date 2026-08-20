@@ -1,0 +1,5 @@
+* Removido suporte "Android App Link", pois não pode funcionar com o F-Droid e estava provocando vazamentos de DNS.
+* Os repositórios de arquivos agora têm prioridade mais baixa do que o repositório (maior na tela Gerenciar repositórios), corrigindo problemas onde o mesmo procurava ícones, capturas de tela e outras informações no arquivo em vez do próprio repositório.
+* Para de cortar a imagem do cabeçalho do recurso
+* A barra de navegação agora corresponde ao modo escuro
+* Código obsoleto limpo

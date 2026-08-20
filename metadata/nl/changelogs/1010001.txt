@@ -1,0 +1,7 @@
+* gebruik notificatiekanalen voor fijne controle (@Isira-Seneviratne)
+* deel apps door Direct Share vanuit App Details (@fynngodau)
+* "Recent" tab toont betere resultaten op niet-Engelse apparaten
+* updates aan kernbibliotheken (Jackson, androidx, gradle, etc.)
+* gladdere whitelabeling ondersteuning
+
+Dank aan nieuwe contributeurs! @fynngodau @projectgus @glennmen @Isira-Seneviratne

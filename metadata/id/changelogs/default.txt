@@ -1,0 +1,8 @@
+* Antarmuka ditulis ulang dari awal dengan Kotlin Compose
+* Pencarian yang ditingkatkan, juga mencari di deskripsi dan terjemahan
+* Lebih mudah menemukan aplikasi baru, juga menyorot yang paling banyak diunduh
+* Persetujuan pemasangan *sebelum* mengunduh
+* Beberapa pembaruan/unduhan sekaligus
+* Memberi tahu pengguna tentang masalah pada aplikasi (misalnya, kunci penandatanganan berubah)
+* Tema warna Material You (opsional)
+* Pemfilteran daftar yang ditingkatkan

@@ -1,0 +1,7 @@
+* Medya, OTA, ZIP vb. dosyaları yükleme desteği
+
+* Birden fazla imzalama anahtarıyla imzalanan APK'lar için tam destek
+
+* Yeni Tibetçe çeviri
+
+* Depoyu kapattıktan sonra ilgili uygulamaları ve kategorileri kaldırma

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_full">F-Droid</string>
+    <string name="version">Vhezheni</string>
+    <string name="delete">Dzima</string>
+    <string name="updates">Zvitsva zvakanatswa</string>
+    <string name="update_auto_install">Vakirira zvekunatsa zviri automatic</string>
+    <string name="no_such_app">Hapana app yakadaro yawanikwa.</string>
+    <string name="about_title_full">Nezve F-Droid</string>
+    <string name="about_version">Vhezheni</string>
+    <string name="about_source">Nyuko yemurau</string>
+    <string name="about_license">Rezenisi</string>
+    <string name="app_incompatible">Hazviwirirane</string>
+    <string name="app_installed">Yavakirirwa</string>
+    <string name="app_inst_known_source">Yavakirirwa (kubva %s)</string>
+    <string name="app_inst_unknown_source">Yavakirirwa (kubva kunyuko isingazivikanwe)</string>
+    <string name="ok">OK</string>
+    <string name="yes">Hongu</string>
+    <string name="no">Kwete</string>
+    <string name="repo_add_add">Wedzera</string>
+    <string name="links">Kochekero</string>
+    <string name="more">Zvimwe</string>
+    <string name="less">Shoma</string>
+    <string name="back">Dzokera</string>
+    <string name="cancel">Kanzura</string>
+    <string name="bad_fingerprint">Chidhindo chechigunwe ichi chakaipa</string>
+    <string name="malformed_repo_uri">Kufuratira URI yepfimbi yakapeyama: %s</string>
+    <string name="menu_settings">Gadziro</string>
+    <string name="menu_search">Tsvaga</string>
+    <string name="menu_add_repo">Pfimbi itsva</string>
+    <string name="menu_share">Gova</string>
+    <string name="menu_install">Vakirira</string>
+    <string name="menu_uninstall">Bvisa chivakirira</string>
+    <string name="menu_ignore_all">Furatira zvekunatsa Ese</string>
+    <string name="menu_ignore_this">Furatira chekunatsa ichi</string>
+    <string name="menu_website">Website</string>
+    <string name="menu_email">Munyori weTsambambozha</string>
+    <string name="menu_issues">Matambudziko</string>
+    <string name="menu_changelog">Shandura Rutarwa rwemakare</string>
+    <string name="menu_source">Nyuko yemurau</string>
+    <string name="menu_upgrade">Kwidziridza</string>
+    <string name="menu_bitcoin">Bitcoin</string>
+    <string name="menu_litecoin">Litecoin</string>
+    <string name="display">Pangidzo</string>
+    <string name="local_repo_running">F-Droid yakagadzirira kutsinhana</string>
+    <string name="touch_to_configure_local_repo">Bata kuti uwone zvizere nekubvumidza vamwe kuti vatsinhana maApps
+        ako.
+    </string>
+    <string name="deleting_repo">Kudzima pfimbi yaiyezvino…</string>
+    <string name="linking_apks">Kukochekera maAPKs kupinda mupfimbi yacho…</string>
+    <string name="icon">Icon</string>
+    <string name="next">Zvinotevera</string>
+    <string name="banner_updating_repositories">Kunatsa pfimbi</string>
+    <string name="installIncompatible">Zvirikuratidza sekunge pakeji inoiyi haiwirirane nemuchina wako. Urikuda kuyedza
+        nekuvakirira zvakangodaro here?
+    </string>
+    <string name="SignatureMismatch">Vhezheni itsva yakasainiwa nesvumbunuro yakasiyana neyakare. Kuti uvakirire
+        vhezheni itsva, yakare inofanirwa kutanga yabviswa pakuvakirira. Tinokumbira kuti utange waita saizvozvo woyedza
+        zvekare. (Yambira kuti kubvisa chivakirira kuchadzima data ririmukati rakachengetwa neapplication.)
+    </string>
+    <string name="theme">Dingindira</string>
+    <string name="repo_details">Pfimbi</string>
+    <string name="repo_fingerprint">Chidhindo chechigunwe chesvumbunuro yekusaina (SHA-256)</string>
+    <string name="repo_confirm_delete_title">Dzima Pfimbi?</string>
+    <string name="repo_confirm_delete_body">Kudzima pfimbi kunoreva kuti
+        maApps kubva mairi haachakwanisa kwanikwa kubva kuF-Droid
+
+        Ziviso: Ese
+        maApp akambo vakirirwa acharamba ari pamuchina wako.
+    </string>
+    <string name="not_on_same_wifi">Muchina wako hausi pamasaisai eWi-Fi mamwe chete nepfimbi yakamanikwa yawabva kuwedzera! Yedza kukochekedza pamasaisai aya: %s</string>
+    <string name="pref_language">Mutauro</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="wifi_ap">Hotspot</string>
+    <string name="swap_join_same_wifi">Hakira paWi-Fi imwe chete seshamwari yako</string>
+    <string name="swap_join_same_wifi_desc">Kuti utsinhana pamasaisai eWi-Fi, tanga mazvivimbisa kuti muripa masaisai mamwe chete. Kana usina hupindwa pamasaisai mamwe chete, mumwe wenyu anokwanisa kusika nzvimbo yake yemasaisai eWi-Fi.</string>
+    <string name="swap_join_this_hotspot">Batsira shamwari yako kupinda panzvimbo yako yemasaisai</string>
+    <string name="swap">Tsinhana maApps</string>
+    <string name="swap_success">Kutsinhana kwabudirira!</string>
+    <string name="swap_no_wifi_network">Hapana masaisai iyezvino</string>
+    <string name="swap_active_hotspot">%1$s (nzvimbo yako yemasaisai)</string>
+    <string name="swap_view_available_networks">Bata kuti uvhure masaisai aripo</string>
+    <string name="swap_switch_to_wifi">Bata kuti uchinje kuenda pane mamwe masaisai eWi-Fi</string>
+    <string name="open_qr_code_scanner">Vhura Scanner yeQR</string>
+    <string name="swap_welcome">Titambire paF-Droid!</string>
+    <string name="swap_confirm_connect">Unoda kuwana maApps kubva pa %1$s izvozvi?</string>
+    <string name="swap_scan_or_type_url">Munhu mumwe chete anoda kunzvera murau, kana kunyora URL yeimwe yacho
+        mubrowser.
+    </string>
+    <string name="swap_choose_apps">Sarudza maApps</string>
+    <string name="swap_scan_qr">Murau weQR</string>
+    <string name="swap_people_nearby">Vanhu vari pedyo</string>
+    <string name="swap_scanning_for_peers">Kutsvaga vanhu vari pedyo…</string>
+    <string name="swap_nearby">Kutsinhana kuri pedyo</string>
+    <string name="swap_intro">Hakira nekuchinjana maApps nevanhu vari pedyo newe.</string>
+    <string name="swap_visible_bluetooth">Kuwoneka nenzira yeBluetooth</string>
+    <string name="swap_setting_up_bluetooth">Kugadzira Bluetooth…</string>
+    <string name="swap_not_visible_bluetooth">Haisi kuwoneka nenzira yeBluetooth</string>
+    <string name="swap_visible_wifi">Kuwoneka nenzira yeWi-Fi</string>
+    <string name="swap_setting_up_wifi">Kugadzira Wi-Fi…</string>
+    <string name="swap_stopping_wifi">Kumisa Wi-Fi…</string>
+    <string name="swap_not_visible_wifi">Haisi kuwoneka nenzira yeWi-Fi</string>
+    <string name="swap_wifi_device_name">Zita remuchina</string>
+    <string name="swap_cant_find_peers">Hausi kuwona munhu wauri kutsvaga here?</string>
+    <string name="swap_send_fdroid">Tumira F-Droid</string>
+    <string name="swap_connecting">Kuhakira</string>
+    <string name="swap_confirm">Tsinhira kutsinhana</string>
+    <string name="swap_qr_isnt_for_swap">Murau weQR wawanzvera hausi kuita kunge murau wekutsinhana.</string>
+    <string name="install_error_notify_title">Kanganiso pakuvakirira %s</string>
+    <string name="installing">Kuvakirira…</string>
+    <string name="theme_light">Chiedza</string>
+    <string name="theme_dark">Rima</string>
+    <string name="crash_dialog_title">F-Droid yabondera</string>
+    <string name="versions">Mavhezheni</string>
+    <string name="notification_title_single_update_available">Kuwedzera kwavapo</string>
+    <string name="notification_title_summary_installing">Kuvakirira</string>
+    <string name="notification_title_summary_install_error">Kuvakirira kwaramba</string>
+    <string name="app__install_downloaded_update">Natsa</string>
+    <string name="installed_apps__activity_title">MaApps akavakirirwa</string>
+    <string name="update_all">Tutunura wedzero dzese</string>
+    <string name="clear_search">Chenesa rutsvako</string>
+    <string name="main_menu__categories">Mapato</string>
+    <string name="main_menu__swap_nearby">Zviri padhuze</string>
+</resources>

@@ -1,0 +1,17 @@
+* Prise en charge des thèmes liée aux thèmes Android intégrés (@proletarius101)
+
+* Nouvelles notifications dans la bannière supérieure : « Pas d'Internet » et « Pas de données mobiles ni de Wi-Fi activé »
+
+* Amélioration de la gestion des dépôts et des miroirs USB-OTG et sur carte SD
+
+* Fin des mises à jour répétées de la bibliothèque Trichrome
+
+* D'autres modifications à venir concernant Material Design (@proletarius101)
+
+* Amélioration du badge OpenCollective (@ConnyDuck)
+
+* Refonte du chargement des icônes à l'aide de Glide (@proletarius101)
+
+* Nouvelle icône adaptative (@12people)
+
+* Modernisation du code (@Isira-Seneviratne)

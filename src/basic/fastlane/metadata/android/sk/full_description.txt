@@ -1,0 +1,15 @@
+POZNÁMKA: Základná verzia aplikácie F-Droid Client má obmedzenú sadu funkcií (napr. chýba zdieľanie v okolí a funkcia „panic“). Je určená pre Android 13 a dokáže vykonávať aktualizácie bez zásahu používateľa bez nutnosti privilegovaného rozšírenia alebo rootovania.
+
+F-Droid je inštalovateľný katalóg aplikácií voľného softvéru pre Android. Aplikácia F-Droid Client uľahčuje prehliadanie, inštaláciu a sledovanie aktualizácií na vašom zariadení.
+
+Pripojí sa k akémukoľvek repozitáru kompatibilnému s F-Droidom. Predvolený repozitár je hosťovaný na f-droid.org, ktorý obsahuje iba overený voľný softvér.
+
+Samotný Android je otvorený v tom zmysle, že si môžete voľne inštalovať APK súbory odkiaľkoľvek, ale existuje mnoho dobrých dôvodov, prečo používať F-Droid ako správcu aplikácií voľného softvéru:
+
+* Nechajte sa upozorniť, keď sú k dispozícii aktualizácie
+* Voliteľne stiahnite a nainštalujte aktualizácie automaticky
+* Sledujte staršie a beta verzie
+* Odfiltrujte aplikácie nekompatibilné so zariadením
+* Vyhľadávajte aplikácie podľa kategórií a popisov
+* Prístup k súvisiacim URL adresám pre darcovstvo, zdrojový kód atď.
+* Zabezpečte si bezpečnosť kontrolou podpisov registra repozitára a hashov APK

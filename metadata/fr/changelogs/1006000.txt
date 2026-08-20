@@ -1,0 +1,12 @@
+* Gestion des autorisations READ_EXTERNAL_STORAGE implicites, qui déclenchent une
+  demande d'autorisation lors des installations avec l'extension privilégiée (#1702)
+
+* Données d'indexation nettoyées afin de réduire les menaces potentielles provenant du serveur
+
+* Le « délai d'attente de lecture » déclenche l'utilisation d'un miroir lorsque les lectures sont lentes
+
+* Correction de l'absence d'icônes pour les utilisateurs ne disposant pas du Wi-Fi (#1592)
+
+* Utilisation de titres distincts pour les préférences « Mises à jour » et l'onglet « Mises à jour », afin de faciliter la traduction
+
+* Corrections de l'interface utilisateur proposées par @ConnyDuck (#1636, #1618)

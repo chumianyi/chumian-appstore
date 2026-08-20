@@ -1,0 +1,8 @@
+* Interfície d'usuari completament reescrita amb Kotlin Compose
+* Cerca millorada, també cerca a les descripcions i traduccions
+* Més facilitat per a descobrir aplicacions, també destaca les més baixades
+* Aprovació de la instal·lació *abans* de fer la baixada
+* Actualitzacions/baixades múltiples a la vegada
+* Notificació a usuaris de problemes en les aplicacions (p. ex. canvis en la clau de signatura)
+* Tema de color Material You opcional
+* Filtratge de llistes millorat

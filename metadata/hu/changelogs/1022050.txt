@@ -1,0 +1,8 @@
+* kísérleti támogatás az alkalmazások archiválásának feloldásához android 15 alatt
+* újonnan telepített alkalmazások aut. hozzáadása a kezdőképernyőhöz a legtöbb indítóban
+* külön link- és fájlmegosztási műveletek az alkalmazás részleteiben
+* pirítós megjelenítése, ha az APK több jogosultsággal rendelkezik a vártnál
+* gyakrabban tisztítja a belső gyorsítótárakat
+* adományozási jelvények újrarendezése
+* kapcsoló hozzáadása az idegen tükrök előnyben részesítéséhez
+* sok apró hibajavítás

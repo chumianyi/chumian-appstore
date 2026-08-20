@@ -1,0 +1,8 @@
+* experimentele ondersteuning voor de-archiveren van apps op Android 15
+* automatisch nieuw geïnstalleerde apps toevoegen aan het thuisscherm van de meeste launchers (Dank Dhina!)
+* link delen en bestand delen acties in "App Details" gesplitst
+* toon toast als APK meer toestemmingen heeft dan verwacht
+* schoon interne caches vaker op (Dank DerGenaue!)
+* donatie badges herbesteld om website te matchen (Dank Leo!)
+* instellingsknop om buitenlandse mirrors te prefereren
+* veel problemen opgelost

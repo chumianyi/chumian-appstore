@@ -1,0 +1,3 @@
+* Sửa lỗi khiến bản dịch không hiển thị trên Android 7.0 trở lên
+
+* Khắc phục lỗi văng app khi nâng cấp cơ sở dữ liệu từ 1.0-alpha3 lên 1.0-alpha4 #1181

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <!-- Trust preinstalled CAs -->
+            <certificates src="system" />
+            <!-- Additionally trust user added CAs -->
+            <certificates src="user" />
+        </trust-anchors>
+
+        <!-- Self-hosted repos may have certs that are not in CT (private CAs) -->
+        <certificateTransparency enabled="false" />
+    </base-config>
+
+    <domain-config cleartextTrafficPermitted="true">
+        <certificateTransparency enabled="false" />
+        <domain includeSubdomains="true">onion</domain>
+    </domain-config>
+
+    <domain-config cleartextTrafficPermitted="false">
+        <certificateTransparency enabled="true" />
+
+        <domain includeSubdomains="true">amazonaws.com</domain>
+        <domain includeSubdomains="true">f-droid.org</domain>
+        <domain includeSubdomains="true">github.com</domain>
+        <domain includeSubdomains="true">githubusercontent.com</domain>
+        <domain includeSubdomains="true">github.io</domain>
+        <domain includeSubdomains="true">gitlab.com</domain>
+        <domain includeSubdomains="true">gitlab.io</domain>
+    </domain-config>
+</network-security-config>

@@ -1,0 +1,13 @@
+* Merombak cara repositori ditampilkan kepada pengguna untuk memperjelas saat penginstalan berasal dari tempat lain selain f-droid.org.
+
+* Mengizinkan pengguna mengubah prioritas repositori secara global dan per aplikasi
+
+* Anti-Fitur Kustom kini diaktifkan secara default, bukan dinonaktifkan
+
+* Mendukung penerimaan URL repo melalui Share
+
+* Semua aktivitas mengikuti tema siang/malam
+
+* Memperbarui penggunaan penyimpanan eksternal agar berfungsi dengan targetSdkVersion 29
+
+* F-Droid Basic diperbarui agar berfungsi dengan targetSdkVersion 34

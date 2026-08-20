@@ -1,0 +1,8 @@
+* Interface utilisateur entièrement réécrite avec Kotlin Compose
+* Recherche améliorée, incluant désormais les descriptions et les traductions
+* Découverte plus facile des nouvelles applications, avec mise en avant des plus téléchargées
+* Validation de l'installation *avant* le téléchargement
+* Mises à jour et téléchargements multiples simultanés
+* Notification à l'utilisateur en cas de problèmes avec les applications (par exemple, modification de la clé de signature)
+* Thème de couleurs « Material You » en option
+* Filtrage amélioré des listes

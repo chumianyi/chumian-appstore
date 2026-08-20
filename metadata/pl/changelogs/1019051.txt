@@ -1,0 +1,15 @@
+* Przegląd obsługi repozytoriów i mirrorów, zarówno pod kątem UX, jak i kodu.
+
+* Wyświetlanie podglądu nowych repozytoriów
+
+* Instalacja z F-Droid i F-Droid Basic obsługuje teraz automatyczne aktualizacje w tle
+
+* Na Androidzie 14 oznacz aplikacje z nieobsługiwaną docelową wersją SDK jako niekompatybilne #2692
+
+* Długie kliknięcie w celu skopiowania linków, uprawnień i wersji na ekranie szczegółów aplikacji (@Tobias_Groza)
+
+* Niekompatybilne aplikacje są wyświetlane tylko wtedy, gdy jest to dozwolone w Ustawieniach #41 (@pigpig)
+
+* Nowe ustawienia bram IPFS
+
+* Wybór języka dla aplikacji (@Licaon-Kter)
